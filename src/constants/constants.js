@@ -1,30 +1,70 @@
 const places = [
-	{ name: "Parque", id: "park", subtype: "GENERAL", type: "INITIAL" },
-	{ name: "Colegio", id: "school", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Parque", id: "parque", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Colegio", id: "colegio", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Médico", id: "médico", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Supermercado", id: "supermercado", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Casa", id: "casa", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Restaurante", id: "restaurante", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Comedor", id: "comedor", subtype: "GENERAL", type: "INITIAL" },
+	{ name: "Farmacia", id: "farmacia", subtype: "GENERAL", type: "INITIAL" },
+
+
 ];
 
 const actions = [
-	{ name: "Quiero", id: "want", type: "GENERAL", subtype: "WANT" },
-	{ name: "Dame", id: "give", type: "GENERAL", subtype: "GIVE" },
+	{ name: "Quiero", id: "quiero", type: "GENERAL", subtype: "WANT" },
 ];
 
 const verbs = [
-	{ name: "Comer", id: "eat", level: 2, type: "WANT", subtype: "FOOD" },
-	{ name: "Coger", id: "take", level: 2, type: "WANT", subtype: "TAKE"  },
-	{ name: "Beber", id: "drink", level: 2, type: "WANT", subtype: "DRINK" },
-	{ name: "Ir", id: "go", level: 2, type: "WANT", subtype: "PLACE" },
+	{ name: "Comer", id: "comer", level: 2, type: "WANT", subtype: "FOOD" },
+	{ name: "Coger", id: "coger", level: 2, type: "WANT", subtype: "TAKE"  },
+	{ name: "Beber", id: "beber", level: 2, type: "WANT", subtype: "DRINK" },
+	{ name: "Ir", id: "ir", level: 2, type: "WANT", subtype: "PLACE" },
+	{ name: "Dormir", id: "dormir", type: "WANT", subtype: "FINISH" },
+	{ name: "Jugar", id: "jugar", level: 2, type: "WANT", subtype: "PLAY" },
+	{ name: "Ver", id: "ver", level: 2, type: "WANT", subtype: "WHATCH" },
+	{ name: "Chupar", id: "chupar", level: 2, type: "WANT", subtype: "CHUPAR" },
+	{ name: "Abrir", id: "abrir", level: 2, type: "WANT", subtype: "OPEN" },
+	{ name: "Ducharme", id: "duchar", level: 2, type: "WANT", subtype: "FINISH" },
+	{ name: "Tirar", id: "tirar", level: 2, type: "WANT", subtype: "TIRAR" },
+	{ name: "Ser", id: "ser", level: 2, type: "WANT", subtype: "SER" },
+	{ name: "Escuchar", id: "escuchar", level: 2, type: "WANT", subtype: "ESCUCHAR" },
 ];
 
 const foods = [
 	{
 		name: "Galletas de chocolate",
-		id: "Galletas chocolate",
+		id: "galletas de chocolate",
 		type: "FOOD",
 		subtype: "FINISH",
 	},
 	{
-		name: "Patatas",
-		id: "patatas",
+		name: "Patatas fritas",
+		id: "patatas fritas",
+		type: "FOOD",
+		subtype: "FINISH",
+	},
+	{
+		name: "Chocolate",
+		id: "chocolate",
+		type: "FOOD",
+		subtype: "FINISH",
+	},
+	{
+		name: "Chocolate blanco",
+		id: "chocolate blanco",
+		type: "FOOD",
+		subtype: "FINISH",
+	},
+	{
+		name: "Aceitunas",
+		id: "aceitunas",
+		type: "FOOD",
+		subtype: "FINISH",
+	},
+	{
+		name: "Regalices",
+		id: "regaliz",
 		type: "FOOD",
 		subtype: "FINISH",
 	},
@@ -41,8 +81,26 @@ const foods = [
 		subtype: "FINISH",
 	},
 	{
+		name: "Manta",
+		id: "manta",
+		type: "TAKE",
+		subtype: "FINISH",
+	},
+	{
+		name: "Guantes",
+		id: "guantes",
+		type: "TAKE",
+		subtype: "FINISH",
+	},
+	{
+		name: "Paraguas",
+		id: "paraguas",
+		type: "TAKE",
+		subtype: "FINISH",
+	},
+	{
 		name: "Zumo de naranja",
-		id: "zumo",
+		id: "zumo de naranja",
 		type: "DRINK",
 		subtype: "FINISH",
 	},
@@ -53,11 +111,66 @@ const foods = [
 		subtype: "FINISH",
 	},
 	{
-		name: "Baño",
-		id: "baño",
+		name: "Coca-Cola Normal",
+		id: "Coca-Cola",
+		type: "DRINK",
+		subtype: "FINISH",
+	},
+	{
+		name: "Leche",
+		id: "leche",
+		type: "DRINK",
+		subtype: "FINISH",
+	},
+	{
+		name: "Café",
+		id: "café",
+		type: "DRINK",
+		subtype: "FINISH",
+	},
+	{
+		name: "Baño chicos",
+		id: "baño chicos",
 		type: "PLACE",
 		subtype: "FINISH",
 	},
+	{
+		name: "Baño chicas",
+		id: "baño chicas",
+		type: "PLACE",
+		subtype: "FINISH",
+	},
+	{
+		name: "Fútbol",
+		id: "fútbol",
+		type: "PLAY",
+		subtype: "FINISH",
+	},
+	{
+		name: "Pelota",
+		id: "pelota",
+		type: "PLAY",
+		subtype: "FINISH",
+	},
+	{
+		name: "Muñeco",
+		id: "muñeco",
+		type: "PLAY",
+		subtype: "FINISH",
+	},
+	{
+		name: "Pinturas",
+		id: "pinturas",
+		type: "PLAY",
+		subtype: "FINISH",
+	},
+	{
+		name: "Baloncesto",
+		id: "canasta",
+		type: "PLAY",
+		subtype: "FINISH",
+	},
 ];
+
 
 export { places, actions, verbs, foods };
