@@ -15,20 +15,14 @@ function App() {
 	const [currentType, setCurrentType] = useState(["INITIAL"]);
 	const [allWords, setAllwords] = useState([]);
 	const [showPhrase, setShowPhrase] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+
 
 	useEffect(() => {
 		const allCurrentWords = [...places, ...actions, ...verbs, ...foods];
 		setAllwords(allCurrentWords);
 	}, []);
-
-	// useEffect(() => {
-	// 	window.speechSynthesis.cancel();
-
-	// 	if (!"speechSynthesis" in window) {
-	// 		console.log("NO VA");
-	// 	}
-	// }, []);
-
+	
 	function speakSentence() {
 		window.speechSynthesis.cancel();
 
@@ -44,7 +38,16 @@ function App() {
 
 		jarvis.speak(voice);
 	}
-
+	function showDeleteConfirmation() {
+		setShowDeleteModal(true);
+	 }
+	 // Función para confirmar el borrado
+	function confirmDelete() {
+			goBack(); // Llamada a la función goBack() para ir atrás después de la confirmación
+			setShowDeleteModal(false);
+	}
+	
+	 
 	function putNewWord(word) {
 		const copyOfPhare = [...phrase];
 		copyOfPhare.push(word.name);
@@ -120,45 +123,58 @@ function App() {
 
 	return (
 		<div className='container'>
+			{showDeleteModal && (
+        		<div className="delete-modal">
+          			<p>¿Estás seguro de que deseas borrar?</p>
+          			<button onClick={confirmDelete}>Confirmar</button>
+          			<button onClick={() => setShowDeleteModal(false)}>Cancelar</button>
+        		</div>
+      		)}
 			<div className='menu'>
 				<img
 					className='icon'
 					src='logo1.jpeg'
 					alt='logo'
+					title='Logo de la aplicación'
 				/>
 				<button
 					type='button'
 					onClick={putFullScreen}
+					title='Activar pantalla completa'
 				><img src={pantallaIcon} alt="Pantalla completa" style={{ width: '50px', height: '50px' }}/>
 					
 				</button>
 			</div>
 			<div className='top-level-menu'>
 				<div className='menu-options'>
-					<button onClick={goHome}> <img src={homeIcon} alt="Home" style={{ width: '24px', height: '24px' }}/>
+					<button onClick={goHome} title='Ir a la página de inicio'> <img src={homeIcon} alt="Home" style={{ width: '24px', height: '24px' }}/>
 						</button>
 					<button
 						disabled={currentType.length === 1}
 						onClick={goBack}
+						title='Atrás'
 					>
 						<img src={backIcon} alt="Atrás" style={{ width: '24px', height: '24px' }}/>
 					</button>
 					<button
 						disabled={currentType.length === 1}
-						onClick={goBack}
+						onClick={showDeleteConfirmation}
+						title='Borrar'
 					>
 						<img src={deleteIcon} alt="Borrar" style={{ width: '24px', height: '24px' }}/>
 					</button>
 					<button
-						// disabled={currentType.length === 1}
 						onClick={speakSentence}
+						title='Leer en alto'
 					>
 						<img src={readIcon} alt="Leer"style={{ width: '24px', height: '24px' }} />
 					</button>
 				</div>
+				
 				<div
 					className='lector'
 					onClick={showLector}
+					title='Pulsa para agrandar y leer'
 				>
 					{phrase.map((word) => {
 						return (
@@ -167,26 +183,30 @@ function App() {
 							</div>
 						);
 					})}
-				</div>
+				</div>				
 			</div>
 
 			<div className='items'>
+			
 				{allWords
 					.filter((word) => word.type === currentType[currentType.length - 1])
 					.map((place) => {
 						return (
-							<div
-								className='item'
-								onClick={() => putNewWord(place)}
-							>
-								<img
-									src={`images/${place.id}.png`}
-									//src={`images/eat.png`}
-									alt={place.name}
-									className='image-word'
-								/>
-								<span>{place.name}</span>
-							</div>
+							
+								<div
+									className='item'
+									key={place.id}
+									onClick={() => putNewWord(place)}
+									title={`Seleccionar ${place.name}`} // Agrega el atributo title
+								>
+									<img
+										src={`images/${place.id}.png`}
+										alt={place.name}
+										className='image-word'
+									/>
+									<span>{place.name}</span>
+								</div>
+								
 						);
 					})}
 			</div>

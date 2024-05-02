@@ -90,3 +90,40 @@
 	width: 50px;
 	height: auto;
 }
+
+ /* Modifica el estilo del modal */
+.delete-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+  }
+  
+  .delete-modal p {
+	margin-bottom: 20px;
+	text-align: center;
+  }
+  
+  .delete-modal button {
+	padding: 10px 20px;
+	margin-right: 10px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+  }
+  
+  .delete-modal button:first-child {
+	background-color: #ff4500;
+	color: white;
+  }
+  
+  .delete-modal button:last-child {
+	background-color: #ddd;
+	color: black;
+  }
+  
