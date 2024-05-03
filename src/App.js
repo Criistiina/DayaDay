@@ -130,14 +130,16 @@ function App() {
 				const matchedItem = allWords.find((item) => item.name === word);
 				if (matchedItem) {
 				  return (
-					<div className='word-with-image' key={matchedItem.id}>
-					<span className='word'>{word}</span>
-					<img
-					src={`images/${matchedItem.id}.png`}
-					alt={matchedItem.name}
-					className='image-word'
-					/>
-				</div>
+					<div className='word-item' key={matchedItem.id}>
+						<div className='word-with-image' >
+						<span className='word'>{word}</span>
+						<img
+						src={`images/${matchedItem.id}.png`}
+						alt={matchedItem.name}
+						className='image-word'
+						/>
+						</div>
+					</div>
 				  );
 				}
 				return null;
@@ -212,21 +214,21 @@ function App() {
 			</div>
 
 			<div className='items'>
-        {currentItemsToShow.map((place) => (
-          <div
-            className='item'
-            key={place.id}
-            onClick={() => putNewWord(place)}
-            title={`Seleccionar ${place.name}`}
-          >
-            <img
-              src={`images/${place.id}.png`}
-              alt={place.name}
-              className='image-word'
-            />
-            <span>{place.name}</span>
-          </div>
-        ))}
+				{currentItemsToShow.map((place) => (
+				<div
+					className='item'
+					key={place.id}
+					onClick={() => putNewWord(place)}
+					title={`Seleccionar ${place.name}`}
+				>
+					<img
+					src={`images/${place.id}.png`}
+					alt={place.name}
+					className='image-word'
+					/>
+					<span>{place.name}</span>
+				</div>
+				))}
 
 		<div className='pagination'>
 		<div className='pagination-info'>
