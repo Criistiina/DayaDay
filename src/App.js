@@ -24,7 +24,9 @@ function App() {
 	useEffect(() => {
 		const allCurrentWords = [...places, ...actions, ...verbs, ...foods];
 		setAllwords(allCurrentWords);
+	
 	}, []);
+	
 	
 	// Lógica para obtener los elementos a mostrar en la página actual según el tipo actual y la paginación
 	const indexOfLastItem = currentPage * itemsPerPage;
@@ -98,6 +100,11 @@ function App() {
 	}
 
 	function showLector() {
+		 // Verifica si no hay ninguna palabra en 'phrase'
+		 if (phrase.length === 0) {
+			return; // Si 'phrase' está vacío, no hace nada
+		  }
+		
 		setShowPhrase(true);
 
 		speakSentence();
@@ -143,7 +150,7 @@ function App() {
 				  );
 				}
 				return null;
-			  })}
+			  })}			
 			</div>
 		  </div>
 		);
@@ -230,25 +237,37 @@ function App() {
 				</div>
 				))}
 
-		<div className='pagination'>
-		<div className='pagination-info'>
-			{totalPages > 1 && (
-			<span>{`${currentPage}/${totalPages}`}</span>
-			)}
-		</div>
-		<div className='pagination-buttons'>
-			<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
-			<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
-			</button>
-			
-			<button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} title='Página siguiente'>
-			<img src={SiguienteIcon} alt="Siguiente" style={{ width: '24px', height: '24px' }}></img>
-			</button>
-		</div>
-		</div>
+		{currentType[currentType.length - 1] == "FINISH" && (			
+			<img
+			src={`images/indicar.png`}
+			alt={'Indicar'}
+			style={{ width: '100px', height: '100px' }}
+			title='Pulsa en la frase'
+			onClick={showLector}
+			/>
+		)}
 
+		{currentType[currentType.length - 1] !== "FINISH" && (
+			<div className='pagination'>
+			<div className='pagination-info'>
+				{totalPages > 1 && (
+				<span>{`${currentPage}/${totalPages}`}</span>
+				)}
+			</div>
+			<div className='pagination-buttons'>
+				<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
+				<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
+				</button>
+				
+				<button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} title='Página siguiente'>
+				<img src={SiguienteIcon} alt="Siguiente" style={{ width: '24px', height: '24px' }}></img>
+				</button>
+			</div>
+			</div>
+		)}
       </div>
     </div>
+	
   );
 }
 
