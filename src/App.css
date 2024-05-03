@@ -16,6 +16,8 @@
 .menu-options {
 	display: flex;
 	gap: 10px;
+	width: '15px';
+	height: '15px';
 }
 .menu button {
 	border: none; /* Elimina el borde del botón */

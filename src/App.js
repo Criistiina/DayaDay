@@ -174,27 +174,27 @@ function App() {
 			</div>
 			<div className='top-level-menu'>
 				<div className='menu-options'>
-					<button onClick={goHome} title='Ir a la página de inicio'> <img src={homeIcon} alt="Inicio" style={{ width: '24px', height: '24px' }}/>
+					<button onClick={goHome} title='Ir a la página de inicio'> <img src={homeIcon} alt="Inicio" style={{ width: '45px', height: '45px' }}/>
 						</button>
 					<button
 						disabled={currentType.length === 1}
 						onClick={goBack}
 						title='Atrás'
 					>
-						<img src={backIcon} alt="Atrás" style={{ width: '24px', height: '24px' }}/>
+						<img src={backIcon} alt="Atrás" style={{width: '45px', height: '45px' }}/>
 					</button>
 					<button
 						disabled={currentType.length === 1}
 						onClick={showDeleteConfirmation}
 						title='Borrar'
 					>
-						<img src={deleteIcon} alt="Borrar" style={{ width: '24px', height: '24px' }}/>
+						<img src={deleteIcon} alt="Borrar" style={{ width: '45px', height: '45px' }}/>
 					</button>
 					<button
 						onClick={speakSentence}
 						title='Leer en alto'
 					>
-						<img src={readIcon} alt="Leer"style={{ width: '24px', height: '24px' }} />
+						<img src={readIcon} alt="Leer"style={{width: '45px', height: '45px'}} />
 					</button>
 				</div>
 				
