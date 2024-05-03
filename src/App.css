@@ -1,8 +1,9 @@
  .container {
 	width: 95vw; /* Ancho igual al tamaño visible de la ventana */
-	height: 100vh; /* Altura igual al tamaño visible de la ventana */
+	height: auto; /* Altura igual al tamaño visible de la ventana */
 	overflow-y: hidden; /* Habilita el scroll vertical solo si el contenido excede la altura máxima */
 	padding: 20px; /* Añade espacio interno al contenido */
+	
   }
 
 .top-level-menu {
