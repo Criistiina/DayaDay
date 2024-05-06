@@ -16,8 +16,6 @@
 .menu-options {
 	display: flex;
 	gap: 10px;
-	width: '15px';
-	height: '15px';
 }
 .menu button {
 	border: none; /* Elimina el borde del botón */
@@ -220,4 +218,34 @@
   .pagination-buttons button {
 	margin: 0 5px;
   }
-  
+ 
+	.Imprimir{
+	position: absolute;
+	top: 20px; /* Ajusta la distancia desde la parte superior */
+	right: 20px; /* Ajusta la distancia desde el lado derecho */
+	padding: 0;
+	background-size: cover;
+	background-position: right;
+	background-repeat: no-repeat;
+	color: white;
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	outline: none; /* Elimina el contorno al hacer clic */
+	transition: transform 0.2s ease; /* Agrega una transición suave al hacer hover */
+
+	/* Establece un tamaño predeterminado o ajusta según sea necesario */
+	width: 200px;
+	
+	}
+	.Imprimir img {
+		width: 50px; /* Ajusta el ancho de la imagen */
+		height: auto; /* Permite que la altura se ajuste automáticamente */
+	  }
+	.Imprimir:hover {
+	transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
+	}
+	
+	.Imprimir:active {
+	transform: scale(0.95); /* Reduzca ligeramente el tamaño al hacer clic */
+	}

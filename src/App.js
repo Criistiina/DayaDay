@@ -10,6 +10,7 @@ import backIcon from "./images/back.png";
 import pantallaIcon from "./images/pantalla completa.png";
 import AnteriorIcon from "./images/anterior.png";
 import SiguienteIcon from "./images/siguiente.png";
+import imprimir from "./images/imprimir.png";
 
 function App() {
 	const [phrase, setPhrase] = useState([]);
@@ -127,7 +128,9 @@ function App() {
 			return;
 		}
 	}
-
+	function printPhrase() {
+		window.print(); // Inicia el proceso de impresión
+	  }
 	
 	if (showPhrase) {
 		return (
@@ -152,6 +155,12 @@ function App() {
 				return null;
 			  })}			
 			</div>
+			<div className="Imprimir">
+				<button onClick={printPhrase} title='Imprimir'>
+					<img src={imprimir} alt="Imprimir"/>
+				</button>
+			</div>
+			
 		  </div>
 		);
 	  }
