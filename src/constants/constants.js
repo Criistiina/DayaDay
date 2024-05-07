@@ -23,7 +23,6 @@ const verbs = [
 	{ name: "Dormir", id: "dormir", type: "WANT", subtype: "FINISH" },
 	{ name: "Jugar", id: "jugar", level: 2, type: "WANT", subtype: "PLAY" },
 	{ name: "Ver", id: "ver", level: 2, type: "WANT", subtype: "WHATCH" },
-	{ name: "Chupar", id: "chupar", level: 2, type: "WANT", subtype: "CHUPAR" },
 	{ name: "Abrir", id: "abrir", level: 2, type: "WANT", subtype: "OPEN" },
 	{ name: "Ducharme", id: "duchar", level: 2, type: "WANT", subtype: "FINISH" },
 	{ name: "Tirar", id: "tirar", level: 2, type: "WANT", subtype: "TIRAR" },
@@ -93,8 +92,20 @@ const foods = [
 		subtype: "FINISH",
 	},
 	{
+		name: "Cargador",
+		id: "cargador",
+		type: "TAKE",
+		subtype: "FINISH",
+	},
+	{
 		name: "Paraguas",
 		id: "paraguas",
+		type: "TAKE",
+		subtype: "FINISH",
+	},	
+	{
+		name: "Cascos",
+		id: "cascos",
 		type: "TAKE",
 		subtype: "FINISH",
 	},
@@ -170,6 +181,110 @@ const foods = [
 		type: "PLAY",
 		subtype: "FINISH",
 	},
+	{
+		name: "Película",
+		id: "pelicula",
+		type: "WHATCH",
+		subtype: "FINISH",
+	},
+	{
+		name: "Partido de futbol",
+		id: "partido futbol",
+		type: "WHATCH",
+		subtype: "FINISH",
+	},
+	{
+		name: "Videoclip",
+		id: "video",
+		type: "WHATCH",
+		subtype: "FINISH",
+	},
+	{
+		name: "Fotos",
+		id: "fotos",
+		type: "WHATCH",
+		subtype: "FINISH",
+	},
+	{
+		name: "Movil",
+		id: "movil",
+		type: "WHATCH",
+		subtype: "FINISH",
+	},
+	{
+		name: "Bailes",
+		id: "bailes",
+		type: "WHATCH",
+		subtype: "FINISH",
+	},
+	{
+		name: "Mochila",
+		id: "mochila",
+		type: "OPEN",
+		subtype: "FINISH",
+	},
+	{
+		name: "Puerta",
+		id: "puerta",
+		type: "OPEN",
+		subtype: "FINISH",
+	},
+	{
+		name: "Nevera",
+		id: "nevera",
+		type: "OPEN",
+		subtype: "FINISH",
+	},
+	{
+		name: "Basura",
+		id: "basura",
+		type: "TIRAR",
+		subtype: "FINISH",
+	},
+	{
+		name: "Puerta",
+		id: "puerta",
+		type: "TIRAR",
+		subtype: "FINISH",
+	},
+	{
+		name: "Disfraz",
+		id: "disfraz",
+		type: "SER",
+		subtype: "FINISH",
+	},
+	{
+		name: "Famoso",
+		id: "famoso",
+		type: "SER",
+		subtype: "FINISH",
+	},
+	{
+		name: "Pintor",
+		id: "pintor",
+		type: "SER",
+		subtype: "FINISH",
+	},
+	{
+		name: "Cantante",
+		id: "cantante",
+		type: "SER",
+		subtype: "FINISH",
+	},
+	{
+		name: "Radio",
+		id: "radio",
+		type: "ESCUCHAR",
+		subtype: "FINISH",
+	},
+	{
+		name: "Música",
+		id: "musica",
+		type: "ESCUCHAR",
+		subtype: "FINISH",
+	},
+	
+		
 ];
 
 

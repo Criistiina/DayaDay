@@ -42,8 +42,11 @@ function App() {
 	
 	
 	  // Función para cambiar de página
-	  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-	
+	  const paginate = (pageNumber) => {
+		if (pageNumber >= 1 && pageNumber <= totalPages) {
+		  setCurrentPage(pageNumber);
+		}
+	  };	
 
 	function speakSentence() {
 		window.speechSynthesis.cancel();
@@ -76,6 +79,9 @@ function App() {
 
 		const copyOfCurrentType = [...currentType];
 		copyOfCurrentType.push(word.subtype);
+
+		// Restablece la página actual a 1 al cambiar de nivel
+		setCurrentPage(1);
 		setCurrentType(copyOfCurrentType);
 
 		if (word.subtype === "GENERAL") {
@@ -230,21 +236,26 @@ function App() {
 			</div>
 
 			<div className='items'>
-				{currentItemsToShow.map((place) => (
-				<div
-					className='item'
-					key={place.id}
-					onClick={() => putNewWord(place)}
-					title={`Seleccionar ${place.name}`}
-				>
-					<img
-					src={`images/${place.id}.png`}
-					alt={place.name}
-					className='image-word'
-					/>
-					<span>{place.name}</span>
-				</div>
-				))}
+				{currentItemsToShow.length > 0 ? (
+					currentItemsToShow.map((place) => (
+					<div
+						className='item'
+						key={place.id}
+						onClick={() => putNewWord(place)}
+						title={`Seleccionar ${place.name}`}
+					>
+						<img
+						src={`images/${place.id}.png`}
+						alt={place.name}
+						className='image-word'
+						/>
+						<span>{place.name}</span>
+					</div>
+				))
+			):
+			(
+				<p>No hay elementos disponibles en esta página.</p>
+			  )}
 
 		{currentType[currentType.length - 1] == "FINISH" && (			
 			<img
@@ -259,9 +270,9 @@ function App() {
 		{currentType[currentType.length - 1] !== "FINISH" && (
 			<div className='pagination'>
 			<div className='pagination-info'>
-				{totalPages > 1 && (
-				<span>{`${currentPage}/${totalPages}`}</span>
-				)}
+			{`${currentPage}/${Math.ceil(
+            allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
+          )}`}
 			</div>
 			<div className='pagination-buttons'>
 				<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
