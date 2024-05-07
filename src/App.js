@@ -236,8 +236,7 @@ function App() {
 			</div>
 
 			<div className='items'>
-				{currentItemsToShow.length > 0 ? (
-					currentItemsToShow.map((place) => (
+				{currentItemsToShow.map((place) => (
 					<div
 						className='item'
 						key={place.id}
@@ -252,39 +251,36 @@ function App() {
 						<span>{place.name}</span>
 					</div>
 				))
-			):
-			(
-				<p>No hay elementos disponibles en esta página.</p>
-			  )}
+			}
 
-		{currentType[currentType.length - 1] == "FINISH" && (			
-			<img
-			src={`images/indicar.png`}
-			alt={'Indicar'}
-			style={{ width: '100px', height: '100px' }}
-			title='Pulsa en la frase'
-			onClick={showLector}
-			/>
-		)}
+				{currentType[currentType.length - 1] == "FINISH" && (			
+					<img
+					src={`images/indicar.png`}
+					alt={'Indicar'}
+					style={{ width: '100px', height: '100px' }}
+					title='Pulsa en la frase'
+					onClick={showLector}
+					/>
+				)}
 
-		{currentType[currentType.length - 1] !== "FINISH" && (
-			<div className='pagination'>
-			<div className='pagination-info'>
-			{`${currentPage}/${Math.ceil(
-            allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
-          )}`}
-			</div>
-			<div className='pagination-buttons'>
-				<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
-				<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
-				</button>
-				
-				<button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} title='Página siguiente'>
-				<img src={SiguienteIcon} alt="Siguiente" style={{ width: '24px', height: '24px' }}></img>
-				</button>
-			</div>
-			</div>
-		)}
+				{currentType[currentType.length - 1] !== "FINISH" && (
+					<div className='pagination'>
+					<div className='pagination-info'>
+					{`${currentPage}/${Math.ceil(
+					allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
+				)}`}
+					</div>
+					<div className='pagination-buttons'>
+						<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
+						<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
+						</button>
+						
+						<button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} title='Página siguiente'>
+						<img src={SiguienteIcon} alt="Siguiente" style={{ width: '24px', height: '24px' }}></img>
+						</button>
+					</div>
+					</div>
+				)}
       </div>
     </div>
 	
