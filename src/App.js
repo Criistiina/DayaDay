@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+
 import "./App.css";
 
 import { places, actions, verbs, foods } from "./constants/constants";
@@ -6,11 +7,14 @@ import { places, actions, verbs, foods } from "./constants/constants";
 import homeIcon from "./images/home.png";
 import readIcon from "./images/reed.png";
 import deleteIcon from "./images/delete.png";
-import backIcon from "./images/back.png";
+import borrarIcon from "./images/borrar.png";
+import backIcon from "./images/atras.png";
 import pantallaIcon from "./images/pantalla completa.png";
 import AnteriorIcon from "./images/anterior.png";
 import SiguienteIcon from "./images/siguiente.png";
 import imprimir from "./images/imprimir.png";
+import añadir from "./images/anadir.png";
+import cancelar from "./images/cancelar.png";
 
 function App() {
 	const [phrase, setPhrase] = useState([]);
@@ -18,8 +22,14 @@ function App() {
 	const [currentType, setCurrentType] = useState(["INITIAL"]);
 	const [allWords, setAllwords] = useState([]);
 	const [showPhrase, setShowPhrase] = useState(false);
-	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
+	const itemsContainerRef = useRef(null);
+	const [items, setItems] = useState([]);
+	const [showConfirmation, setShowConfirmation] = useState(false);
+	const [itemToDelete, setItemToDelete] = useState(null);
+    const [photoURL, setPhotoURL] = useState("");
+	const inputRef = useRef(null);
+
 	const itemsPerPage = 6; // Número de elementos por página
 
 	useEffect(() => {
@@ -47,7 +57,64 @@ function App() {
 		  setCurrentPage(pageNumber);
 		}
 	  };	
+	  const handleFileChange = (event) => {
+		const files = event.target.files; // Obtener todos los archivos seleccionados
+		if (files) {
+		  for (let i = 0; i < files.length; i++) {
+			const file = files[i];
+			const reader = new FileReader();
+			reader.onloadend = () => {
+			  console.log("File loaded:", file);
+			  console.log("File loaded:", reader.result);
+			  setPhotoURL(reader.result);
+			  addItem(); // Llama a addItem para agregar cada imagen
+			};
+			reader.readAsDataURL(file);
+		  }
+		}
+    };
+	
+	const addItem = () => {
+		if (photoURL) {
+			const newItem = {
+				id: Date.now(),
+				image: photoURL,
+				name: "New Item",
+			};
+			console.log("Nuevo item:", newItem); // Agregamos un console.log para verificar el nuevo item
+			setItems((prevItems) => [...prevItems, newItem]); // Agregar el nuevo item a la lista items
+		}
+	};
+	
+		// Función para manejar el clic en el botón de eliminar
+		const handleDeleteItem = (item) => {
+			console.log("Elemento a eliminar:", item);
+			setShowConfirmation(true); // Mostrar el botón de confirmación
+			setItemToDelete(item); // Establecer el item a eliminar en el estado
+		};
 
+		// Función para confirmar la eliminación del elemento
+		const confirmDeleteItem = () => {
+			console.log("Confirmar eliminación:", itemToDelete);
+			if (itemToDelete.id === "photo") {
+				setPhotoURL(""); // Limpiar el estado de la foto
+			} else {
+				const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
+				const updatedAllWords = allWords.filter((word) => word.id !== itemToDelete.id);
+				setItems(updatedItems);
+				setAllwords(updatedAllWords);
+			}
+			setShowConfirmation(false); // Ocultar el botón de confirmación
+			setItemToDelete(null); // Limpiar itemToDelete
+		};
+
+		// Función para cancelar la eliminación del elemento
+		const cancelDeleteItem = () => {
+			setShowConfirmation(false);
+			setItemToDelete(null); // Limpiar itemToDelete
+
+		};
+		
 	function speakSentence() {
 		window.speechSynthesis.cancel();
 
@@ -60,35 +127,49 @@ function App() {
 		let jarvis = window.speechSynthesis;
 
 		voice.text = phrase.toString();
-
+		// Establecer la velocidad de la voz (0.5 es la mitad de la velocidad normal)
+		voice.rate = 0.56;
 		jarvis.speak(voice);
 	}
-	function showDeleteConfirmation() {
-		setShowDeleteModal(true);
-	 }
-	 // Función para confirmar el borrado
-	function confirmDelete() {
-			goBack(); // Llamada a la función goBack() para ir atrás después de la confirmación
-		  setShowDeleteModal(false);
-	}
 	
-	 
+	
+	const handleTouchStart = (event) => {
+        const touchStartX = event.touches[0].clientX;
+        itemsContainerRef.current.dataset.touchStartX = touchStartX;
+    };
+
+    const handleTouchEnd = (event) => {
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchStartX = parseInt(itemsContainerRef.current.dataset.touchStartX, 10);
+        const deltaX = touchEndX - touchStartX;
+        const threshold = 50; // Umbral de desplazamiento para cambiar de página
+
+        if (deltaX > threshold) {
+            // Deslizamiento hacia la izquierda, cambia a la página anterior
+            paginate(currentPage - 1);
+        } else if (deltaX < -threshold) {
+            // Deslizamiento hacia la derecha, cambia a la página siguiente
+            paginate(currentPage + 1);
+        }
+    };
+
 	function putNewWord(word) {
 		const copyOfPhare = [...phrase];
 		copyOfPhare.push(word.name);
 
-		const copyOfCurrentType = [...currentType];
-		copyOfCurrentType.push(word.subtype);
-
-		// Restablece la página actual a 1 al cambiar de nivel
-		setCurrentPage(1);
-		setCurrentType(copyOfCurrentType);
-
-		if (word.subtype === "GENERAL") {
-			return;
+		if (word.subtype === "FINISH") {
+			// No cambiamos el estado currentType para permitir más selecciones
+		} else {
+			const copyOfCurrentType = [...currentType];
+			copyOfCurrentType.push(word.subtype);
+			setCurrentType(copyOfCurrentType);
 		}
+		if (word.subtype === "GENERAL") {
+            return;
+        }
 
 		setPhrase(copyOfPhare);
+
 	}
 
 	function goBack() {
@@ -116,7 +197,16 @@ function App() {
 
 		speakSentence();
 	}
-
+	function deleteLastWord() {
+		const copyOfPhrase = [...phrase];
+		copyOfPhrase.pop(); // Elimina la última palabra de la frase
+	
+		setPhrase(copyOfPhrase);
+	}
+	
+	function deleteWholePhrase() {
+		setPhrase([]); // Elimina toda la frase
+	}
 	function putFullScreen() {
 		const documentElement = document.documentElement;
 
@@ -148,12 +238,12 @@ function App() {
 				  return (
 					<div className='word-item' key={matchedItem.id}>
 						<div className='word-with-image' >
-						<span className='word'>{word}</span>
 						<img
 						src={`images/${matchedItem.id}.png`}
 						alt={matchedItem.name}
 						className='image-word'
 						/>
+						<span className='word'>{word}</span>
 						</div>
 					</div>
 				  );
@@ -172,13 +262,7 @@ function App() {
 	  }
 	return (
 		<div className='container'>
-			{showDeleteModal && (
-        		<div className="delete-modal">
-          			<p>¿Estás seguro de que deseas borrar?</p>
-          			<button onClick={confirmDelete}>Confirmar</button>
-          			<button onClick={() => setShowDeleteModal(false)}>Cancelar</button>
-        		</div>
-      		)}
+			
 			<div className='menu'>
 				<img
 					className='icon'
@@ -186,6 +270,16 @@ function App() {
 					alt='logo'
 					title='Logo de la aplicación'
 				/>
+				<label htmlFor="fileInput" className="file-input-label">
+						<img src={añadir}  alt='Agregar ítem' />
+				</label>
+				<input
+					type='file'
+					ref={inputRef}
+					id="fileInput"
+					style={{ display: 'none' }}
+					onChange={handleFileChange}
+					/>
 				<button
 					type='button'
 					onClick={putFullScreen}
@@ -194,85 +288,141 @@ function App() {
 					
 				</button>
 			</div>
-			<div className='top-level-menu'>
-				<div className='menu-options'>
-					<button onClick={goHome} title='Ir a la página de inicio'> <img src={homeIcon} alt="Inicio" style={{ width: '45px', height: '45px' }}/>
+			<div className={`top-level-menu ${showPhrase ? 'menu-hidden' : ''}`}>
+				<div className={`menu-options ${showPhrase ? 'menu-hidden' : ''}`}>
+					<div className='menu-left' style={{ width: showPhrase ? '50%' : 'auto' }}>
+						<button onClick={goHome} title='Ir a la página de inicio'> <img src={homeIcon} alt="Inicio"/>
+							</button>
+						<button
+							disabled={currentType.length === 1}
+							onClick={goBack}
+							title='Atrás'
+						>
+							<img src={backIcon} alt="Atrás"/>
 						</button>
-					<button
-						disabled={currentType.length === 1}
-						onClick={goBack}
-						title='Atrás'
-					>
-						<img src={backIcon} alt="Atrás" style={{width: '45px', height: '45px' }}/>
-					</button>
-					<button
-						disabled={currentType.length === 1}
-						onClick={showDeleteConfirmation}
-						title='Borrar'
-					>
-						<img src={deleteIcon} alt="Borrar" style={{ width: '45px', height: '45px' }}/>
-					</button>
-					<button
-						onClick={speakSentence}
-						title='Leer en alto'
-					>
-						<img src={readIcon} alt="Leer"style={{width: '45px', height: '45px'}} />
-					</button>
-				</div>
-				
-				<div
-					className='lector'
-					onClick={showLector}
-					title='Pulsa para agrandar y leer'
-				>
-					{phrase.map((word) => {
-						return (
-							<div className='word'>
-								<span>{word}</span>
-							</div>
-						);
-					})}
-				</div>				
-			</div>
-
-			<div className='items'>
-				{currentItemsToShow.map((place) => (
-					<div
-						className='item'
-						key={place.id}
-						onClick={() => putNewWord(place)}
-						title={`Seleccionar ${place.name}`}
-					>
-						<img
-						src={`images/${place.id}.png`}
-						alt={place.name}
-						className='image-word'
-						/>
-						<span>{place.name}</span>
 					</div>
-				))
-			}
+				</div>
+					<div
+						className={`lector ${showPhrase ? 'menu-hidden' : ''}`}
+						onClick={showLector}
+						title='Pulsa para agrandar y leer'
+					>
+						{phrase.map((word, index) => {
+							const matchedItem = allWords.find(item => item.name === word);
+							if (matchedItem) {
+								return (
+									<div className='word-item' key={index}>
+										<div className='word-with-image' >
+											<img
+												src={`images/${matchedItem.id}.png`}
+												alt={matchedItem.name}
+												className='image-word'
+											/>
+                        					<div className='word-below-image'>{word}</div>
+										</div>
+									</div>
+								);
+							}
+							return null;
+						})}
+					</div>
+				
 
-				{currentType[currentType.length - 1] == "FINISH" && (			
-					<img
-					src={`images/indicar.png`}
-					alt={'Indicar'}
-					style={{ width: '100px', height: '100px' }}
-					title='Pulsa en la frase'
-					onClick={showLector}
-					/>
-				)}
+				<div className={`menu-options ${showPhrase ? 'menu-hidden' : ''}`}>
+        			<div className='menu-right' style={{ width: showPhrase ? '50%' : 'auto' }}>
+						<button
+							disabled={currentType.length === 1}
+							onClick={deleteLastWord}
+							title='Borrar última palabra'
+						>
+							<img src={borrarIcon} alt="Borrar" />
+						</button>
+						<button
+							disabled={currentType.length === 1}
+							onClick={deleteWholePhrase}
+							title='Eliminar frase completa'
+						>
+							<img src={deleteIcon} alt="Eliminar" />
+						</button>
+						<button
+							onClick={speakSentence}
+							title='Leer en alto'
+						>
+							<img src={readIcon} alt="Leer" />
+						</button>
+					</div>
+				</div>
+			</div>	
+
+			<div className='items'
+				ref={itemsContainerRef}
+				onTouchStart={handleTouchStart}
+				onTouchEnd={handleTouchEnd}
+				>
+					{items.map((item) => (
+					<div className='item' key={item.id}>										
+						<img src={item.image} alt={item.name} />
+						<span>{item.name}</span>
+						<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(item)}} title={`Eliminar ${item.name}`}>
+								<img src={cancelar} alt="Eliminar" />
+						</button>							
+							{(showConfirmation && itemToDelete && itemToDelete.id === item.id) && (
+								<div className="confirmation-modal">
+									<p>¿Estás seguro que deseas eliminar este elemento?</p>
+									<button onClick={confirmDeleteItem}>Sí</button>
+									<button onClick={cancelDeleteItem}>Cancelar</button>
+								</div>
+							)}
+					</div>
+				))}
+					{photoURL && (
+						<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace('.png', '')}`}>
+							<img src={photoURL} alt='Imagen seleccionada' />
+							<span>{inputRef.current.files[0].name.replace('.png', '')}</span>
+							<button className='delete-button' onClick={(e) => { e.stopPropagation(); handleDeleteItem({ id: "photo" })}} title={`Eliminar ${inputRef.current.files[0].name.replace('.png', '')}`}>
+								<img src={cancelar} alt="Eliminar" />
+							</button>
+							{(showConfirmation && itemToDelete && itemToDelete.id === "photo") && (
+								<div className="confirmation-modal">
+									<p>¿Estás seguro que deseas eliminar este elemento?</p>
+									<button onClick={confirmDeleteItem}>Sí</button>
+									<button onClick={cancelDeleteItem}>Cancelar</button>
+								</div>
+							)}
+						</div>
+					)}
+					{currentItemsToShow.map((place) => (
+						<div
+							className='item'
+							key={place.id}
+							onClick={() => putNewWord(place)}
+							title={`Seleccionar ${place.name}`}
+						>						
+							<img
+							src={`images/${place.id}.png`}
+							alt={place.name}
+							className='image-word'
+							/>
+							<span>{place.name}</span>
+							<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(place)}} title={`Eliminar ${place.name}`}>
+									<img src={cancelar} alt="Eliminar" />
+							</button>
+						</div>
+					))
+					}
+					
+			</div>
 
 				{currentType[currentType.length - 1] !== "FINISH" && (
 					<div className='pagination'>
 					<div className='pagination-info'>
-					{`${currentPage}/${Math.ceil(
-					allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
-				)}`}
+						{`${currentPage}/${Math.ceil(
+						allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
+						)}`}
 					</div>
 					<div className='pagination-buttons'>
 						<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
-						<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
+							<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
 						</button>
 						
 						<button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} title='Página siguiente'>
@@ -281,8 +431,8 @@ function App() {
 					</div>
 					</div>
 				)}
-      </div>
-    </div>
+				
+	  </div>
 	
   );
 }
