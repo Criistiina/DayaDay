@@ -168,9 +168,7 @@
     padding: 10px; /* Espaciado interno */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
     z-index: 1; /* Ajusta el z-index según sea necesario */
-    display: ${showConfirmation ? 'flex' : 'none'}; /* Muestra el modal solo cuando showConfirmation es true */
-    flex-direction: column; /* Alinea los elementos en columna */
-    align-items: center; /* Centra horizontalmente los elementos */
+   
 }
 
 .confirmation-modal {
