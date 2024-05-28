@@ -1,5 +1,5 @@
- /* Ajustes generales para el cuerpo y el contenedor */
- html, body {
+/* Ajustes generales para el cuerpo y el contenedor */
+html, body {
     height: 100%; /* Asegura que la altura de HTML y el cuerpo ocupe toda la pantalla */
     margin: 0 auto; /* Elimina el margen predeterminado del cuerpo */
     padding: 0; /* Elimina el relleno predeterminado del cuerpo */
@@ -78,11 +78,15 @@
     z-index: 1; /* Ajusta el z-index según sea necesario */
 }
 
+
 /* Estilos de los items */
 .word-item {
     width: 25%; /* Divide el espacio en 4 partes iguales */
     height: auto;
     margin: 1%;
+	margin-right: 10%;
+	font-weight: bold; /* Negrita para el nombre */
+
 }
 
 .word-with-image {
@@ -138,7 +142,7 @@
   }
   
   .item span {
-	font-size: 100%; /* Tamaño de fuente deseado para el nombre */
+	font-size: 85%; /* Tamaño de fuente deseado para el nombre */
 	font-weight: bold; /* Negrita para el nombre */
 	text-align: center;
   }
@@ -253,23 +257,22 @@
 .lector-big {
 	padding: 5%; /* Ajustar el relleno interno */
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
+    justify-content: flex-start; /* Alinear los elementos al principio horizontalmente */
     align-items: center; /* Centrar verticalmente */
     margin: 10% auto; /* Ajustar automáticamente el margen horizontal para centrar */
-    width: 80%; /* Establecer el ancho del contenedor */
-    max-width: 800px; /* Establecer el ancho máximo del contenedor */
+    max-width: 80%; /* Establecer el ancho máximo del contenedor */
     background-color: white; /* Fondo blanco */
     border: 2px solid black; /* Borde negro */
     border-radius: 10px; /* Radio de borde */
-	overflow: auto; /* Permitir desplazamiento si los elementos no caben */
+    overflow-x: auto; /* Permitir desplazamiento horizontal si los elementos no caben */
+    white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
 
 }
 
 .lector-big .word-item {
-	width: 15%; /* Reducir el ancho de cada elemento para que todos estén en una línea */
-    margin: 0; /* Eliminar el margen entre los elementos */
-    padding: 2%; /* Relleno interno de cada elemento */
-    text-align: center; /* Centra el texto dentro de cada elemento */
+	width: auto; /* Permitir que los elementos tengan su propio ancho */
+    margin-right: 2%; /* Espacio entre los elementos */
+    white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
 }
 
 .lector-big .word-item .word-with-image {
@@ -277,25 +280,32 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px; /* Margen inferior de la imagen y la palabra */
+	margin-left: 10%;
+}
+.lector-big .word-items-container {
+    display: flex;
+    flex-wrap: nowrap; /* Asegurar que los elementos no se envuelvan a la siguiente línea */
+    overflow-x: auto; /* Permitir desplazamiento horizontal si los elementos no caben */
 }
 .word-items-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px; /* Espacio entre los ítems */
-}
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 20px; /* Espacio entre los ítems */
+	font-weight: bold; /* Negrita para el nombre */
 
-.word-item {
-    width: 20%; /* Ajustamos el ancho para que los ítems se ajusten mejor */
-    padding: 2%; /* Relleno interno de cada elemento */
-    text-align: center; /* Centra el texto dentro de cada elemento */
-}
-
+  }
+  
 .word-item .image-word {
     height: 60px;
     margin-bottom: 10px;
+    margin-right: 15px;
     width: 60px;
+}
+.word-item{
+	margin-left: 5%;
+	padding: 0 auto;
 }
  
 .pagination {
