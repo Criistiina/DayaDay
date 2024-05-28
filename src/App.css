@@ -236,62 +236,66 @@
     background-color: #ffffff;
     cursor: pointer;
 }
-  
 .lector-container {
-	background-color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-    text-align: center;
-    overflow: hidden; /* Ocultar scroll interno */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
+    width: 100vw; /* Ancho del viewport */
+    height: 100vh; /* Alto del viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Posición fija para cubrir toda la página */
+    top: 0; /* Desde la parte superior */
+    left: 0; /* Desde la parte izquierda */
+    z-index: 9999; /* Colocarlo por encima de otros elementos */
+    overflow: hidden; /* Oculta el scroll interno */
 }
 
 .lector-big {
-	padding:15%;
-	display: flex;
-	flex-direction: row; /* Mostrar elementos en columna */
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 10% ;
-	cursor: pointer;
-	background-color: rgb(122, 117, 117);
+	padding: 5%; /* Ajustar el relleno interno */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    margin: 10% auto; /* Ajustar automáticamente el margen horizontal para centrar */
+    width: 80%; /* Establecer el ancho del contenedor */
+    max-width: 800px; /* Establecer el ancho máximo del contenedor */
+    background-color: white; /* Fondo blanco */
+    border: 2px solid black; /* Borde negro */
+    border-radius: 10px; /* Radio de borde */
+	overflow: auto; /* Permitir desplazamiento si los elementos no caben */
 
 }
-.lector-big .word-item {
-	border: 2px solid #000000; /* Añade un borde alrededor de cada item */
-	padding: 1%; /* Añade espacio interno para separar los contenidos */
-	background-color: white;
-	font-size: 250%;
 
-  }
-.lector-big .word-with-image {
-	display: flex;
-	flex-direction: column; /* Mostrar palabra e imagen en columna */
-	align-items: center;
-	margin-bottom: 10%;
-  }
-  .lector-big .word-with-image .word {
-	margin-right: 10%; /* Espacio entre cada palabra */
-  }
-  .lector-big .word-with-image img {
-	width: 100%;
-	height: auto;
-	margin-right: 5%;
-  }
-  
+.lector-big .word-item {
+	width: 15%; /* Reducir el ancho de cada elemento para que todos estén en una línea */
+    margin: 0; /* Eliminar el margen entre los elementos */
+    padding: 2%; /* Relleno interno de cada elemento */
+    text-align: center; /* Centra el texto dentro de cada elemento */
+}
+
+.lector-big .word-item .word-with-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px; /* Margen inferior de la imagen y la palabra */
+}
+.word-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espacio entre los ítems */
+}
+
+.word-item {
+    width: 20%; /* Ajustamos el ancho para que los ítems se ajusten mejor */
+    padding: 2%; /* Relleno interno de cada elemento */
+    text-align: center; /* Centra el texto dentro de cada elemento */
+}
 
 .word-item .image-word {
     height: 60px;
     margin-bottom: 10px;
-    margin-right: 15px;
     width: 60px;
-}
-.word-item{
-	margin-left: 5%;
-	padding: 0 auto;
 }
  
 .pagination {
@@ -321,34 +325,37 @@
 	background-color: white; /* Fondo blanco para los iconos y el lector */
 	border:  1px solid black; 
   }
- 
-	.Imprimir{
+  .Imprimir {
 	position: fixed;
-	top: 3%; /* Ajusta la distancia desde la parte superior */
-	right: 1%; /* Ajusta la distancia desde el lado derecho */
-	background-size: cover;
-	background-position: right;
-	background-repeat: no-repeat;
-	font-weight: bold;
-	border: none;
-	cursor: pointer;
-	outline: none; /* Elimina el contorno al hacer clic */
+	top: 5%;
+	right: 5%;
+	z-index: 1000; /* Asegura que esté por encima del contenido */
 	transition: transform 0.2s ease; /* Agrega una transición suave al hacer hover */
 
-	/* Establece un tamaño predeterminado o ajusta según sea necesario */
-	
-	}
-	.Imprimir img {
-		width: 5%; /* Ajusta el ancho de la imagen */
-		height: auto; /* Permite que la altura se ajuste automáticamente */
-	  }
-	.Imprimir:hover {
+  }
+  
+  .Imprimir button {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+  }
+  
+  .Imprimir img {
+	width: 30px; /* Tamaño deseado del icono */
+	height: auto;
+  }
+   
+
+.Imprimir:hover {
 	transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
-	}
-	
-	.Imprimir:active {
+}
+
+.Imprimir:active {
 	transform: scale(0.95); /* Reduzca ligeramente el tamaño al hacer clic */
-	}
+}
+
+
 	/* Ajuste del fondo de los iconos y del lector */
 .menu-options button img,
 .lector,

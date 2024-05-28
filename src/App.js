@@ -241,24 +241,26 @@ function App() {
 		return (
 		  <div className='lector-container'>
 			<div className='lector-big' onClick={() => setShowPhrase(false)}>
-			  {phrase.map((word) => {
-				const matchedItem = allWords.find((item) => item.name === word);
-				if (matchedItem) {
-				  return (
-					<div className='word-item' key={matchedItem.id}>
-						<div className='word-with-image' >
-						<img
-						src={`images/${matchedItem.id}.png`}
-						alt={matchedItem.name}
-						className='image-word'
-						/>
-						<span className='word'>{word}</span>
+				<div className='word-items-container'> 
+				{phrase.map((word) => {
+					const matchedItem = allWords.find((item) => item.name === word);
+					if (matchedItem) {
+					return (
+						<div className='word-item' key={matchedItem.id}>
+							<div className='word-with-image' >
+								<img
+								src={`images/${matchedItem.id}.png`}
+								alt={matchedItem.name}
+								className='image-word'
+								/>
+							<span className='word'>{word}</span>
+							</div>
 						</div>
-					</div>
-				  );
-				}
-				return null;
-			  })}			
+					);
+					}
+					return null;
+				})}			
+				</div>
 			</div>
 			<div className="Imprimir">
 				<button onClick={printPhrase} title='Imprimir'>
