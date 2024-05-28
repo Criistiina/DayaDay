@@ -80,33 +80,41 @@ function App() {
 				id: Date.now(),
 				image: photoURL,
 				name: "New Item",
+				type: currentType[currentType.length - 1], // Asegura que el tipo actual se establezca correctamente
+
 			};
 			console.log("Nuevo item:", newItem); // Agregamos un console.log para verificar el nuevo item
 			setItems((prevItems) => [...prevItems, newItem]); // Agregar el nuevo item a la lista items
 		}
 	};
 	
-		// Función para manejar el clic en el botón de eliminar
-		const handleDeleteItem = (item) => {
-			console.log("Elemento a eliminar:", item);
-			setShowConfirmation(true); // Mostrar el botón de confirmación
-			setItemToDelete(item); // Establecer el item a eliminar en el estado
-		};
+	const handleDeleteItem = (item) => {
+		setShowConfirmation(true); // Mostrar el modal de confirmación
+		setItemToDelete(item); // Establecer el item a eliminar en el estado
+	};
 
 		// Función para confirmar la eliminación del elemento
-		const confirmDeleteItem = () => {
-			console.log("Confirmar eliminación:", itemToDelete);
-			if (itemToDelete.id === "photo") {
-				setPhotoURL(""); // Limpiar el estado de la foto
-			} else {
-				const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
-				const updatedAllWords = allWords.filter((word) => word.id !== itemToDelete.id);
-				setItems(updatedItems);
-				setAllwords(updatedAllWords);
-			}
-			setShowConfirmation(false); // Ocultar el botón de confirmación
-			setItemToDelete(null); // Limpiar itemToDelete
-		};
+			const confirmDeleteItem = () => {
+				console.log("Confirmar eliminación:", itemToDelete);
+				// Verificar si el elemento a eliminar es un elemento predeterminado
+				const isDefaultItem = allWords.some((word) => word.id === itemToDelete.id);
+				if (isDefaultItem) {
+					// Si es un elemento predeterminado, solo elimínalo de la lista de palabras
+					const updatedAllWords = allWords.filter((word) => word.id !== itemToDelete.id);
+					setAllwords(updatedAllWords);
+				} else {
+					// Si no es un elemento predeterminado, procede con la eliminación del elemento
+					const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
+					setItems(updatedItems);
+				}
+
+				if (itemToDelete.id === "photo") {
+					// Si el elemento a eliminar es una foto recientemente seleccionada
+					setPhotoURL(""); // Limpiar la URL de la foto
+				}
+				setShowConfirmation(false); // Ocultar el botón de confirmación
+				setItemToDelete(null); // Limpiar itemToDelete
+			};
 
 		// Función para cancelar la eliminación del elemento
 		const cancelDeleteItem = () => {
@@ -114,6 +122,7 @@ function App() {
 			setItemToDelete(null); // Limpiar itemToDelete
 
 		};
+	
 		
 	function speakSentence() {
 		window.speechSynthesis.cancel();
@@ -262,35 +271,38 @@ function App() {
 	  }
 	return (
 		<div className='container'>
-			
-			<div className='menu'>
-				<img
+						
+				<div class="button-container">
+					<label htmlFor="fileInput" className="file-input-label">
+							<img src={añadir}  alt='Agregar ítem' />
+							<button
+								className="pantalla-completa"
+								type='button'
+								onClick={putFullScreen}
+								title='Activar pantalla completa'
+								><img src={pantallaIcon} alt="Pantalla completa"/>
+						
+						</button>
+					
+					</label>
+				
+					<input
+						type='file'
+						ref={inputRef}
+						id="fileInput"
+						style={{ display: 'none' }}
+						onChange={handleFileChange}
+						/>
+						<img
 					className='icon'
 					src='logo1.jpeg'
 					alt='logo'
 					title='Logo de la aplicación'
-				/>
-				<label htmlFor="fileInput" className="file-input-label">
-						<img src={añadir}  alt='Agregar ítem' />
-				</label>
-				<input
-					type='file'
-					ref={inputRef}
-					id="fileInput"
-					style={{ display: 'none' }}
-					onChange={handleFileChange}
-					/>
-				<button
-					type='button'
-					onClick={putFullScreen}
-					title='Activar pantalla completa'
-				><img src={pantallaIcon} alt="Pantalla completa"/>
-					
-				</button>
-			</div>
-			<div className={`top-level-menu ${showPhrase ? 'menu-hidden' : ''}`}>
+				/> 
+				</div>
+				
 				<div className={`menu-options ${showPhrase ? 'menu-hidden' : ''}`}>
-					<div className='menu-left' style={{ width: showPhrase ? '50%' : 'auto' }}>
+					<div className='menu-left' >
 						<button onClick={goHome} title='Ir a la página de inicio'> <img src={homeIcon} alt="Inicio"/>
 							</button>
 						<button
@@ -301,7 +313,7 @@ function App() {
 							<img src={backIcon} alt="Atrás"/>
 						</button>
 					</div>
-				</div>
+				
 					<div
 						className={`lector ${showPhrase ? 'menu-hidden' : ''}`}
 						onClick={showLector}
@@ -328,8 +340,7 @@ function App() {
 					</div>
 				
 
-				<div className={`menu-options ${showPhrase ? 'menu-hidden' : ''}`}>
-        			<div className='menu-right' style={{ width: showPhrase ? '50%' : 'auto' }}>
+        			<div className='menu-right' >
 						<button
 							disabled={currentType.length === 1}
 							onClick={deleteLastWord}
@@ -352,65 +363,48 @@ function App() {
 						</button>
 					</div>
 				</div>
-			</div>	
+			
 
 			<div className='items'
 				ref={itemsContainerRef}
 				onTouchStart={handleTouchStart}
 				onTouchEnd={handleTouchEnd}
 				>
-					{items.map((item) => (
-					<div className='item' key={item.id}>										
-						<img src={item.image} alt={item.name} />
-						<span>{item.name}</span>
-						<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(item)}} title={`Eliminar ${item.name}`}>
+					{currentItemsToShow.map((place) => (
+					<div className='item' key={place.id} onClick={() => putNewWord(place)}
+					title={`Seleccionar ${place.name}`}>										
+						<img src={`images/${place.id}.png`}
+							alt={place.name}
+							className='image-word'/>
+						<span>{place.name}</span>
+						<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(place)}} title={`Eliminar ${place.name}`}>
 								<img src={cancelar} alt="Eliminar" />
 						</button>							
-							{(showConfirmation && itemToDelete && itemToDelete.id === item.id) && (
-								<div className="confirmation-modal">
-									<p>¿Estás seguro que deseas eliminar este elemento?</p>
-									<button onClick={confirmDeleteItem}>Sí</button>
-									<button onClick={cancelDeleteItem}>Cancelar</button>
-								</div>
-							)}
+						
 					</div>
-				))}
+					))}
+								
+				
 					{photoURL && (
-						<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace('.png', '')}`}>
+						<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}>
 							<img src={photoURL} alt='Imagen seleccionada' />
-							<span>{inputRef.current.files[0].name.replace('.png', '')}</span>
+							<span>{inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}</span>
 							<button className='delete-button' onClick={(e) => { e.stopPropagation(); handleDeleteItem({ id: "photo" })}} title={`Eliminar ${inputRef.current.files[0].name.replace('.png', '')}`}>
 								<img src={cancelar} alt="Eliminar" />
 							</button>
-							{(showConfirmation && itemToDelete && itemToDelete.id === "photo") && (
-								<div className="confirmation-modal">
-									<p>¿Estás seguro que deseas eliminar este elemento?</p>
+							
+						</div>
+					)}
+				
+				{(showConfirmation && itemToDelete && (
+							<div className="confirmation-modal" >
+								<p>¿Estás seguro que deseas eliminar {itemToDelete.name ? itemToDelete.name : ` ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}??</p>
+								<div className="confirmation-modal-buttons">
 									<button onClick={confirmDeleteItem}>Sí</button>
 									<button onClick={cancelDeleteItem}>Cancelar</button>
 								</div>
-							)}
-						</div>
-					)}
-					{currentItemsToShow.map((place) => (
-						<div
-							className='item'
-							key={place.id}
-							onClick={() => putNewWord(place)}
-							title={`Seleccionar ${place.name}`}
-						>						
-							<img
-							src={`images/${place.id}.png`}
-							alt={place.name}
-							className='image-word'
-							/>
-							<span>{place.name}</span>
-							<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(place)}} title={`Eliminar ${place.name}`}>
-									<img src={cancelar} alt="Eliminar" />
-							</button>
-						</div>
-					))
-					}
-					
+							</div>
+						))}
 			</div>
 
 				{currentType[currentType.length - 1] !== "FINISH" && (

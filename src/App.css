@@ -1,129 +1,129 @@
-/* Ajustes generales para el cuerpo y el contenedor */
-html, body {
+ /* Ajustes generales para el cuerpo y el contenedor */
+ html, body {
     height: 100%; /* Asegura que la altura de HTML y el cuerpo ocupe toda la pantalla */
-    margin: 0; /* Elimina el margen predeterminado del cuerpo */
+    margin: 0 auto; /* Elimina el margen predeterminado del cuerpo */
     padding: 0; /* Elimina el relleno predeterminado del cuerpo */
     background-color: #cac9c9; /* Color de fondo gris claro */
 
 }
 
  .container {
-	width: 95vw; /* Ancho igual al tamaño visible de la ventana */
-	height: auto; /* Altura igual al tamaño visible de la ventana */
+	width: 80%; /* Ancho igual al tamaño visible de la ventana */
 	padding: 20px; /* Añade espacio interno al contenido */
 	display: flex;
     flex-direction: column;
+	margin: 0 auto; /* Centra el contenedor horizontalmente */
+
   }
 
-.top-level-menu {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start; /* Cambiamos esto de 'center' a 'flex-start' */
-	padding: 10px;
-}
-.menu-options button img {
-    width: 45px;
-    height: 45px;
-}
 
 
+/* Estilos para los elementos dentro del contenedor principal */
 .menu-options {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-    max-width: 800px; /* Establece un ancho máximo para mantener la legibilidad */
-    margin: 0 auto; /* Centra horizontalmente */
-  }
-  .menu-left,
-  .menu-right {
-	flex: 1; /* Ocupa todo el espacio disponible */
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: 100%; /* Ocupa toda la altura disponible */
+}
+.menu-left,
+.menu-right {
 	display: flex;
-	justify-content: space-evenly;  /* Alinea los elementos a la izquierda */
-	flex-direction: row;
-	overflow-x: auto;
-	align-items: center;
-
-  }
-  .menu-right {
-	justify-content: flex-end; /* Alinea los elementos a la derecha */
-  }
-  .menu-left button,
-  .menu-right button {
-	border: none;
-	background: none;
-	padding: 5px;
-	width: 90px; /* Establece un tamaño fijo para los botones del menú */
-	height: 125px; /* Permite que la altura se ajuste automáticamente */
-
-  }
-  
-  .menu-left button img,
-  .menu-right button img {
-	width: 100%; /* Ajusta el tamaño de la imagen al 100% del botón */
-	height: auto; /* Permite que la altura se ajuste automáticamente */
-  }
-.menu button {
-	border: none; /* Elimina el borde del botón */
-	background: none; /* Elimina cualquier fondo de botón */
-	padding: 0; /* Elimina el relleno interno del botón */
-  }
-  
-  .menu button img {
-	position: fixed;
-	bottom: 20px; /* Distancia desde la parte inferior */
-	right: 20px; /* Distancia desde el lado derecho */
-	padding: 5px; /* Ajusta el espacio interno del botón */
-	width: 40px; /* Ancho del botón */
-	height: 40px; /* Altura del botón */
-    background-color: white; /* Fondo blanco para el icono de pantalla completa */
-
-  }
-  
-  .menu button:focus {
-	outline: none; /* Elimina el contorno al enfocar el botón */
-  }
-  
-  
-.lector {
-	width: 100%;
-	height: 110px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 2px solid black;
-	margin: 20px auto;
-	cursor: pointer;
-
+    flex-direction: row;
+    overflow-x: auto;
+    align-items: center;
 }
 
-.word {
-	margin: 0 5px;
+.menu-left {
+    width: 14%; /* Ancho fijo para el menú izquierdo */
+}
+
+.menu-right {
+    width: 20%; /* Ancho fijo para el menú derecho */
+}
+
+.menu-left button,
+.menu-right button {
+	width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none; /* Elimina el fondo del botón */
+    border: none; /* Elimina el borde del botón */
+    cursor: pointer;
+}
+
+.menu-left button img,
+.menu-right button img {
+    width: 100%;
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+/* Estilos del lector */
+.lector {
+	width: 100%; /* Ocupa la totalidad del ancho disponible */
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos al principio */
+    align-items: center;
+    border: 2px solid black;
+    cursor: pointer;
+    flex: 1; /* Permite que este elemento crezca para ocupar el espacio disponible */
+	min-width: 100px; /* Ajusta el tamaño mínimo según sea necesario */
+    min-height: 100px; /* Ajusta el tamaño mínimo según sea necesario */	
+	overflow: auto; /* Agrega una barra de desplazamiento si el contenido es demasiado grande */
+    white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+	position: relative; /* Asegura que los elementos dentro se posicionen correctamente */
+    z-index: 1; /* Ajusta el z-index según sea necesario */
+}
+
+/* Estilos de los items */
+.word-item {
+    width: 25%; /* Divide el espacio en 4 partes iguales */
+    height: auto;
+    margin: 1%;
+}
+
+.word-with-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-word {
+    width: 70%;
+    height: auto;
+}
+
+.word-below-image {
+    margin-top: 5px;
 }
 
 .item {
 	flex: 0 0 calc(25% - 20px); /* Calcula el ancho del elemento para mostrar 3 elementos por fila */
-	min-width: 200px;
-	height: 200px;
+	min-width: 25%;
+	height: 100%;
 	border:  1px solid black; ;
-	padding: 10px;
+	padding: 2%;
 	display: flex;
-	gap: 10px;
+	gap: 10%;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
 	flex-direction: column;
-	margin: 10px;
+	margin: 1%;
 	background-color: white; /* Establece un fondo blanco para los pictogramas */
 	position: relative; /* Agregamos posición relativa */
+    flex-shrink: 0; /* Permite que los elementos se reduzcan de tamaño si es necesario */
+    margin-bottom: 2%; /* Añade un margen inferior para separar los elementos */
 
 }
-
   
 .items {
 	display: flex;
 	justify-content: center;
-	gap: 20px;
-	margin: 20px 0;
+	margin: 3% 0;
 	flex-wrap: wrap;
     align-items: center;
 	overflow-x: auto;
@@ -132,29 +132,30 @@ html, body {
 
 }
 .item img {
-	width: 100px; /* Ancho deseado para la imagen */
+	width: 25%; /* Ancho deseado para la imagen */
 	height: auto; /* Altura automática para mantener la proporción */
-	margin-bottom: 10px; /* Espacio inferior para separar la imagen del texto */
+	margin-bottom: 10%; /* Espacio inferior para separar la imagen del texto */
   }
   
   .item span {
-	font-size: 18px; /* Tamaño de fuente deseado para el nombre */
+	font-size: 100%; /* Tamaño de fuente deseado para el nombre */
 	font-weight: bold; /* Negrita para el nombre */
 	text-align: center;
   }
   .delete-button {
     position: absolute; /* Establece posición absoluta */
-    top: 5px; /* Ajusta la posición desde la parte superior */
-    right: 5px; /* Ajusta la posición desde la parte derecha */
+    top: 10%; /* Ajusta la posición desde la parte superior */
+    left: 80%; /* Ajusta la posición desde la parte derecha */
     background-color: transparent; /* Fondo transparente */
     border: none; /* Sin borde */
     cursor: pointer; /* Cursor apuntador */
 }
 
 .delete-button img {
-    width: 16px; /* Ajusta el tamaño del icono */
-    height: 16px; /* Ajusta el tamaño del icono */
+    width: 15%; /* Ajusta el tamaño del icono */
+    height: 5%; /* Ajusta el tamaño del icono */
 }
+
 
 .confirmation-modal {
     position: absolute; /* Establece posición absoluta */
@@ -166,28 +167,47 @@ html, body {
     border-radius: 5px; /* Radio del borde */
     padding: 10px; /* Espaciado interno */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-    z-index: 1; /* Asegura que esté encima de otros elementos */
+    z-index: 1; /* Ajusta el z-index según sea necesario */
+    display: ${showConfirmation ? 'flex' : 'none'}; /* Muestra el modal solo cuando showConfirmation es true */
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center; /* Centra horizontalmente los elementos */
+}
+
+.confirmation-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .confirmation-modal p {
-    margin: 0; /* Elimina el margen */
-    font-size: 14px; /* Tamaño de fuente */
-    color: #333333; /* Color de fuente */
+    margin-bottom: 1em; /* Espacio entre el texto y los botones */
+}
+
+.confirmation-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
 }
 
 .confirmation-modal button {
     padding: 5px 10px; /* Espaciado del botón */
-    margin-top: 5px; /* Margen superior */
-    background-color: #007bff; /* Color de fondo del botón */
+    background-color: #5c6166; /* Color de fondo del botón */
     color: #ffffff; /* Color de fuente del botón */
     border: none; /* Sin borde */
     border-radius: 3px; /* Radio del borde */
     cursor: pointer; /* Cursor apuntador */
+    flex: 1; /* Asegura que los botones ocupen el mismo espacio */
+    margin: 0 10px; /* Espacio horizontal entre los botones */
 }
 
 .confirmation-modal button:first-child {
-    background-color: #dc3545; /* Color de fondo del botón 'Sí' */
+    margin-left: 0; /* Quita el margen izquierdo del primer botón */
 }
+
+.confirmation-modal button:last-child {
+    margin-right: 0; /* Quita el margen derecho del último botón */
+}
+
   .column.horizontal {
 	flex: 1;
   }
@@ -199,7 +219,7 @@ html, body {
   }
   
   .actions-container .item {
-    margin-bottom: 5px; /* Reducir el espacio entre las filas de acciones */
+    margin-bottom: 5%; /* Reducir el espacio entre las filas de acciones */
   }
   
   .verbs-container {
@@ -212,9 +232,9 @@ html, body {
   
   .verbs-container .item {
 	flex: 1;
-    margin-right: 5px; /* Reducir el espacio entre los verbos */
-    margin-bottom: 5px; /* Reducir el espacio entre las filas de verbos */
-    padding: 10px;
+    margin-right: 5%; /* Reducir el espacio entre los verbos */
+    margin-bottom: 5%; /* Reducir el espacio entre las filas de verbos */
+    padding: 10%;
     background-color: #ffffff;
     cursor: pointer;
 }
@@ -222,7 +242,7 @@ html, body {
 .lector-container {
 	background-color: rgba(0, 0, 0, 0.5);
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -232,74 +252,59 @@ html, body {
 }
 
 .lector-big {
-	padding: 20px;
+	padding:15%;
 	display: flex;
 	flex-direction: row; /* Mostrar elementos en columna */
 	justify-content: center;
 	align-items: center;
-	margin: 20px 0;
+	margin-bottom: 10% ;
 	cursor: pointer;
-	font-size: 42px;
-	background-color: white;
+	background-color: rgb(122, 117, 117);
 
 }
 .lector-big .word-item {
 	border: 2px solid #000000; /* Añade un borde alrededor de cada item */
-	padding: 10px; /* Añade espacio interno para separar los contenidos */
-	margin-bottom: 10px; /* Añade espacio entre cada item */
+	padding: 1%; /* Añade espacio interno para separar los contenidos */
 	background-color: white;
-	
+	font-size: 250%;
+
   }
 .lector-big .word-with-image {
 	display: flex;
 	flex-direction: column; /* Mostrar palabra e imagen en columna */
 	align-items: center;
-	margin-bottom: 10px;
+	margin-bottom: 10%;
   }
   .lector-big .word-with-image .word {
-	margin-right: 40px; /* Espacio entre cada palabra */
+	margin-right: 10%; /* Espacio entre cada palabra */
   }
   .lector-big .word-with-image img {
-	width: 100px;
+	width: 100%;
 	height: auto;
-	margin-right: 10px;
+	margin-right: 5%;
   }
   
-.menu {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px;
-}
-
-.icon {
-	width: 50px;
-	position: fixed;
-	top: 20px; /* Distancia desde la parte inferior */
-	right: 20px; /* Distancia desde el lado derecho */
-}
 
 .word-item .image-word {
-    width: 60px; /* Ajusta el ancho según sea necesario */
-    height: 60px; /* Ajusta la altura según sea necesario */
-	margin-bottom: 10px; /* Ajusta la cantidad de espacio vertical entre los ítems */
-	margin-right: 15px;
+    height: 60px;
+    margin-bottom: 10px;
+    margin-right: 15px;
+    width: 60px;
 }
 .word-item{
-	margin-left: 10px;
+	margin-left: 5%;
+	padding: 0 auto;
 }
  
 .pagination {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100%; /* Ajusta el ancho según sea necesario */
-	padding: 10px; /* Añade espacio alrededor del contenedor */
 	
   }
   
   .pagination-info {
-	margin-bottom: 10px;
+	margin-bottom: 1%;
 	
   }
   
@@ -314,20 +319,18 @@ html, body {
   }
   
   .pagination-buttons button {
-	margin: 0 5px;
+	margin: 0 2%;
 	background-color: white; /* Fondo blanco para los iconos y el lector */
 	border:  1px solid black; 
   }
  
 	.Imprimir{
-	position: absolute;
-	top: 20px; /* Ajusta la distancia desde la parte superior */
-	right: 20px; /* Ajusta la distancia desde el lado derecho */
-	padding: 0;
+	position: fixed;
+	top: 3%; /* Ajusta la distancia desde la parte superior */
+	right: 1%; /* Ajusta la distancia desde el lado derecho */
 	background-size: cover;
 	background-position: right;
 	background-repeat: no-repeat;
-	color: white;
 	font-weight: bold;
 	border: none;
 	cursor: pointer;
@@ -335,11 +338,10 @@ html, body {
 	transition: transform 0.2s ease; /* Agrega una transición suave al hacer hover */
 
 	/* Establece un tamaño predeterminado o ajusta según sea necesario */
-	width: 200px;
 	
 	}
 	.Imprimir img {
-		width: 50px; /* Ajusta el ancho de la imagen */
+		width: 5%; /* Ajusta el ancho de la imagen */
 		height: auto; /* Permite que la altura se ajuste automáticamente */
 	  }
 	.Imprimir:hover {
@@ -352,34 +354,74 @@ html, body {
 	/* Ajuste del fondo de los iconos y del lector */
 .menu-options button img,
 .lector,
-.Imprimir img,
 .menu img {
     background-color: white; /* Fondo blanco para los iconos y el lector */
 	border:  1px solid black; ;
  }
- .file-input-label {
-    display: inline-block;
+
+ .button-container {
+    display: flex;
+    align-items: center;
+}
+
+.file-input-label {
+    display: flex;
+    align-items: center;
     cursor: pointer;
+	margin-right: 5%; /* Elimina cualquier margen derecho */
+	margin-bottom: 2%;
 }
 
 .file-input-label img {
-    width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
-    height: 50px;
+    width: 3%; /* Ajusta el tamaño según sea necesario */
+    background-color: transparent; /* Elimina el fondo */
 }
 
+.pantalla-completa {
+    border: none; /* Elimina el borde del botón */
+    background: none; /* Elimina el fondo del botón */
+    padding: 0; /* Elimina cualquier padding adicional */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+	margin-left: 1%; /* Elimina cualquier margen derecho */
+
+}
+
+.pantalla-completa img {
+    width: 55%; /* Ajusta el tamaño según sea necesario */
+    background-color: transparent; /* Elimina el fondo */
+    display: block; /* Asegura que la imagen no tenga margen extra */
+}
 .file-input-label:hover {
     /* Agrega estilos de hover según sea necesario */
+}
+.icon {
+    width: 5%; /* Cambia el ancho al 15% del contenedor */
+    position: fixed; /* Establece posición fija para que se mantenga en la pantalla */
+    top: 5%; /* Alinea el icono en la parte inferior */
+    right: 10%; /* Alinea el icono a la izquierda */
 }
 
  /*RESPONSIVE*/
  /* Ocultar el logo en dispositivos que no sean ordenadores */
-@media (max-width: 768px) {
-    .icon {
-        display: none;
-    }
-}
+
 @media (max-width: 768px) {
     .item {
         width: calc(50% / 2);
+    }
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 1024px) {
+    .item {
+		width: calc(50% / 2);
+    }
+}
+
+@media (max-width: 480px) {
+    .item {
+    	width: calc(50% / 2);
+
     }
 }
