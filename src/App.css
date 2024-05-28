@@ -63,45 +63,67 @@ html, body {
 
 /* Estilos del lector */
 .lector {
-	width: 100%; /* Ocupa la totalidad del ancho disponible */
+	width: 80%; /* Reduce el ancho del contenedor */
+    max-width: 80%; /* Asegura que el ancho máximo no sea superior al 50% */
     display: flex;
     justify-content: flex-start; /* Alinea los elementos al principio */
     align-items: center;
     border: 2px solid black;
     cursor: pointer;
     flex: 1; /* Permite que este elemento crezca para ocupar el espacio disponible */
-	min-width: 100px; /* Ajusta el tamaño mínimo según sea necesario */
-    min-height: 100px; /* Ajusta el tamaño mínimo según sea necesario */	
-	overflow: auto; /* Agrega una barra de desplazamiento si el contenido es demasiado grande */
+    min-width: 50%; /* Ajusta el tamaño mínimo según sea necesario */
+    min-height: 100px; /* Ajusta el tamaño mínimo según sea necesario */    
+    overflow: auto; /* Agrega una barra de desplazamiento si el contenido es demasiado grande */
     white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-	position: relative; /* Asegura que los elementos dentro se posicionen correctamente */
+    position: relative; /* Asegura que los elementos dentro se posicionen correctamente */
     z-index: 1; /* Ajusta el z-index según sea necesario */
 }
 
 
-/* Estilos de los items */
-.word-item {
-    width: 25%; /* Divide el espacio en 4 partes iguales */
-    height: auto;
-    margin: 1%;
-	margin-right: 10%;
-	font-weight: bold; /* Negrita para el nombre */
+/* Estilos de los items dentro del lector */
+.lector .word-item {
+	margin: 0.5% 0; /* Reduce el espacio vertical entre los ítems */
+    font-weight: bold; /* Negrita para el nombre */
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    background-color: white; /* Fondo blanco para cada ítem */
+    padding: 10px; /* Añade un padding interno */
+    border-radius: 5px; /* Añade un radio de borde */
+    box-sizing: border-box; /* Asegura que padding y borde se incluyan en las dimensiones totales */
+    text-align: center; /* Centra el texto */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    word-wrap: break-word; /* Permite que las palabras largas se dividan en varias líneas */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido se corta */
 
 }
 
-.word-with-image {
+/* Estilos del contenido dentro de cada item */
+.lector .word-with-image {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 50%; /* Establece un ancho fijo para la imagen */
 }
 
-.image-word {
-    width: 70%;
-    height: auto;
+/* Estilos de la imagen dentro del item */
+.lector .image-word {
+    width: 100%; /* Establece un ancho fijo para la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
 }
 
-.word-below-image {
-    margin-top: 5px;
+/* Estilos del texto debajo de la imagen */
+.lector .word-below-image {
+    margin-top: 5px; /* Ajusta el margen superior del texto */
+    text-align: center; /* Centra el texto */
+    width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+}
+
+/* Ajuste de estilo adicional para la imagen */
+.lector .word-with-image img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
 }
 
 .item {
@@ -135,11 +157,29 @@ html, body {
     -webkit-overflow-scrolling: touch; /* Habilita el desplazamiento suave en iOS */
 
 }
-.item img {
-	width: 25%; /* Ancho deseado para la imagen */
-	height: auto; /* Altura automática para mantener la proporción */
-	margin-bottom: 10%; /* Espacio inferior para separar la imagen del texto */
-  }
+/* Estilos del contenido dentro de cada item */
+.item .word-with-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /* Ajusta el ancho al 100% para ocupar todo el espacio disponible */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilos de la imagen dentro del item */
+.item .image-word {
+    width: 40%; /* Establece un ancho fijo para la imagen */
+    height: 40%; /* Mantiene la proporción de la imagen */
+    margin-bottom: 5%; /* Ajusta el margen inferior de la imagen */
+}
+
+/* Estilos del texto debajo de la imagen */
+.item .word-below-image {
+    margin-top: 5px; /* Ajusta el margen superior del texto */
+    text-align: center; /* Centra el texto */
+    width: 100%; /* Ajusta el ancho al 100% para ocupar todo el espacio disponible */
+    margin-bottom: 1%; /* Ajusta el margen inferior del texto */
+}
   
   .item span {
 	font-size: 85%; /* Tamaño de fuente deseado para el nombre */
@@ -246,7 +286,7 @@ html, body {
 }
 .lector-container {
     background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
-    width: 100vw; /* Ancho del viewport */
+    width: 100%; /* Ancho del viewport */
     height: 100vh; /* Alto del viewport */
     display: flex;
     justify-content: center;
@@ -256,26 +296,31 @@ html, body {
     left: 0; /* Desde la parte izquierda */
     z-index: 9999; /* Colocarlo por encima de otros elementos */
     overflow: hidden; /* Oculta el scroll interno */
+	
 }
 
 .lector-big {
-	padding: 5%; /* Ajustar el relleno interno */
+	padding: 3%; /* Ajustar el relleno interno */
     display: flex;
     justify-content: flex-start; /* Alinear los elementos al principio horizontalmente */
     align-items: center; /* Centrar verticalmente */
-    margin: 10% auto; /* Ajustar automáticamente el margen horizontal para centrar */
+    margin: 15% auto; /* Ajustar automáticamente el margen horizontal para centrar y aumentar el margen vertical */
     max-width: 80%; /* Establecer el ancho máximo del contenedor */
     background-color: white; /* Fondo blanco */
     border: 2px solid black; /* Borde negro */
     border-radius: 10px; /* Radio de borde */
-    overflow-x: auto; /* Permitir desplazamiento horizontal si los elementos no caben */
+    overflow-x: visible; /* Permitir desplazamiento horizontal si los elementos no caben */
     white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
 
 }
 
 .lector-big .word-item {
-	width: auto; /* Permitir que los elementos tengan su propio ancho */
-    margin-right: 2%; /* Espacio entre los elementos */
+	flex: 0 0 15%; /* Ajustar el tamaño de cada ítem a un 15% del contenedor */
+    margin: 1%; /* Espacio alrededor de cada ítem */
+    box-sizing: border-box; /* Incluir padding y border en el tamaño total del ítem */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
 }
 
@@ -283,33 +328,31 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10px; /* Margen inferior de la imagen y la palabra */
-	margin-left: 10%;
+	width: 100%; /* Asegurar que el contenido ocupe todo el ancho del ítem */
+    height: 100%; /* Asegurar que el contenido ocupe todo el alto del ítem */
+    margin-bottom: 10%; /* Margen inferior de la imagen y la palabra */
 }
 .lector-big .word-items-container {
     display: flex;
     flex-wrap: nowrap; /* Asegurar que los elementos no se envuelvan a la siguiente línea */
     overflow-x: auto; /* Permitir desplazamiento horizontal si los elementos no caben */
+	gap: 1%; /* Reducir el espacio entre los ítems */
+	justify-content: flex-start; /* Alinear los elementos al principio */
+    align-items: center; /* Centrar verticalmente */
 }
-.word-items-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 20px; /* Espacio entre los ítems */
-	font-weight: bold; /* Negrita para el nombre */
 
-  }
-  
 .word-item .image-word {
-    height: 60px;
-    margin-bottom: 10px;
-    margin-right: 15px;
-    width: 60px;
+	width: 70%;
+    height: auto;
+    margin-bottom: 5%; /* Ajustar el margen inferior de la imagen */
+    max-width: 100px; /* Tamaño máximo de la imagen */
+    max-height: 100px; /* Tamaño máximo de la imagen */
 }
 .word-item{
 	margin-left: 5%;
 	padding: 0 auto;
+	box-sizing: border-box; /* Incluir padding y border en el tamaño total del ítem */
+
 }
  
 .pagination {
