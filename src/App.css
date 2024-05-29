@@ -118,7 +118,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    text-align: center;
     width: 100%; /* Ancho completo del contenedor */
 }
 
@@ -146,12 +146,15 @@ html, body {
 .lector .word-with-image img {
     max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
     height: auto; /* Mantiene la proporción de la imagen */
+    margin-bottom: 5%; /* Ajusta el margen inferior de la imagen */
+
 }
 
 .item {
 	flex: 0 0 calc(25% - 20px); /* Calcula el ancho del elemento para mostrar 3 elementos por fila */
 	min-width: 25%;
-	height: 100%;
+    width: 100px;
+	height: 100px;
 	border:  1px solid black; ;
 	padding: 2%;
 	display: flex;
@@ -165,7 +168,7 @@ html, body {
 	position: relative; /* Agregamos posición relativa */
     flex-shrink: 0; /* Permite que los elementos se reduzcan de tamaño si es necesario */
     margin-bottom: 2%; /* Añade un margen inferior para separar los elementos */
-
+    
 }
   
 .items {
@@ -188,12 +191,6 @@ html, body {
     text-align: center; /* Centra el texto */
 }
 
-/* Estilos de la imagen dentro del item */
-.item .image-word {
-    width: 40%; /* Establece un ancho fijo para la imagen */
-    height: 40%; /* Mantiene la proporción de la imagen */
-    margin-bottom: 5%; /* Ajusta el margen inferior de la imagen */
-}
 
 /* Estilos del texto debajo de la imagen */
 .item .word-below-image {
@@ -320,13 +317,15 @@ html, body {
     overflow: hidden; /* Oculta el scroll interno */
     padding: 0;
     margin: 0;
-}.lector-big {
+    
+}
+.lector-big {
     padding: 1%; /* Ajustar el relleno interno */
     display: flex;
     justify-content: flex-start; /* Alinear los elementos al principio horizontalmente */
     align-items: center; /* Centrar verticalmente */
     margin: 15% auto; /* Ajustar automáticamente el margen horizontal para centrar y aumentar el margen vertical */
-    width: 95%; /* Ancho del contenedor */
+    width: 70%; /* Ancho del contenedor */
     background-color: white; /* Fondo blanco */
     border: 2px solid black; /* Borde negro */
     border-radius: 10px; /* Radio de borde */
@@ -343,19 +342,11 @@ html, body {
     flex-direction: column;
     align-items: center;
     white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
-    margin: 0; /* Eliminar espacio entre ítems */
     padding: 0; /* Eliminar padding adicional */
-    width: auto; /* Ajustar el ancho al contenido */
-    margin-right: -5px; /* Ajustar el espacio entre los elementos */
+    height: auto;
 }
 
-.lector-big .word-item .word-with-image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; /* Asegurar que el contenido ocupe todo el ancho del ítem */
-    height: auto; /* Ajustar la altura automáticamente */
-}
+
 
 .lector-big .word-items-container {
     display: flex;
@@ -522,7 +513,7 @@ html, body {
 }
 /* Estilos para dispositivos  */
 @media (max-width: 600px) {
-    .lector-big  .word-with-image {
+    .lector-big  .word-item {
         flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 100%; /* Establece el ancho máximo del ítem */
         font-size: 75%; /* Reducir el tamaño de la fuente para las palabras */
@@ -530,7 +521,7 @@ html, body {
 }
 /* Estilos para dispositivos  */
 @media (max-width: 500px) {
-    .lector-big  .word-with-image {
+    .lector-big  .word-item {
         flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 80%; /* Establece el ancho máximo del ítem */
         font-size: 55%; /* Reducir el tamaño de la fuente para las palabras */
@@ -539,9 +530,10 @@ html, body {
 /* Estilos para dispositivos de tamaño mediano */
 @media (max-width: 1024px) {
     .lector-big .word-item {
-        flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        flex: 0 0 15%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 20%; /* Establece el ancho máximo del ítem */
         font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+
     }
 }
 /* Estilos para dispositivos de tamaño mediano */

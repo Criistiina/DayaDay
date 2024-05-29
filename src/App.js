@@ -57,6 +57,9 @@ function App() {
 		  setCurrentPage(pageNumber);
 		}
 	  };	
+	  const resetPagination = () => {
+        setCurrentPage(1);
+    };
 	  const handleFileChange = (event) => {
 		const files = event.target.files; // Obtener todos los archivos seleccionados
 		if (files) {
@@ -178,6 +181,7 @@ function App() {
         }
 
 		setPhrase(copyOfPhare);
+        resetPagination(); // Resetear la paginación al añadir una nueva palabra
 
 	}
 
@@ -194,6 +198,8 @@ function App() {
 	function goHome() {
 		setCurrentType(["INITIAL"]);
 		setPhrase([]);
+		resetPagination(); // Resetear la paginación al añadir una nueva palabra
+
 	}
 
 	function showLector() {
@@ -247,14 +253,13 @@ function App() {
 						if (matchedItem) {
 						return (
 							<div className='word-item' key={matchedItem.id}>
-								<div className='word-with-image' >
 									<img
 									src={`images/${matchedItem.id}.png`}
 									alt={matchedItem.name}
 									className='image-word'
+									style={{ objectFit: 'cover', width: '30%', height: '50%' }}
 									/>
 								<span className='word'>{word}</span>
-								</div>
 							</div>
 						);
 						}
@@ -332,6 +337,7 @@ function App() {
 												src={`images/${matchedItem.id}.png`}
 												alt={matchedItem.name}
 												className='image-word'
+												style={{ objectFit: 'cover', width: '30%', height: '100%' }}
 											/>
                         					<div className='word-below-image'>{word}</div>
 										</div>
@@ -378,7 +384,9 @@ function App() {
 					title={`Seleccionar ${place.name}`}>										
 						<img src={`images/${place.id}.png`}
 							alt={place.name}
-							className='image-word'/>
+							className='image-word'
+							style={{ objectFit: 'cover', width: '30%', height: '100%' }}
+							/>
 						<span>{place.name}</span>
 						<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(place)}} title={`Eliminar ${place.name}`}>
 								<img src={cancelar} alt="Eliminar" />
@@ -390,7 +398,7 @@ function App() {
 				
 					{photoURL && (
 						<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}>
-							<img src={photoURL} alt='Imagen seleccionada' />
+							<img src={photoURL} alt='Imagen seleccionada'style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
 							<span>{inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}</span>
 							<button className='delete-button' onClick={(e) => { e.stopPropagation(); handleDeleteItem({ id: "photo" })}} title={`Eliminar ${inputRef.current.files[0].name.replace('.png', '')}`}>
 								<img src={cancelar} alt="Eliminar" />
