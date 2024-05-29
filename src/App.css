@@ -372,7 +372,24 @@ html, body {
     padding: 0; /* Eliminar padding interno */
     min-width: auto; /* Ajustar el ancho automáticamente */
 }
- 
+.salir {
+    position: absolute; /* Posición relativa para permitir posicionar el elemento dentro de él */
+    margin-top: 10%; /* Espacio entre el lector-big y el mensaje */
+}
+
+.salir p {
+    border: 1px solid #ccc; /* Borde de la nota */
+    border-radius: 5px; /* Borde redondeado */
+    padding: 8px; /* Espacio interior de la nota */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra de la nota */
+    position: absolute; /* Posición absoluta para permitir posicionar exactamente */
+    top: calc(100% + 20px); /* Posiciona el mensaje justo debajo del lector-big */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    width: max-content; /* Ancho máximo basado en el contenido */
+    text-align: center; /* Alineación centrada del texto */
+    font-size: 9px; /* Tamaño de fuente */
+}
 .pagination {
 	display: flex;
 	flex-direction: column;

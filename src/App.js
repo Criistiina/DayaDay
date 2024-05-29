@@ -261,19 +261,24 @@ function App() {
 									/>
 								<span className='word'>{word}</span>
 							</div>
+							
 						);
 						}
 						return null;
 					})}			
 				</div>
-			</div>
-			<div className="Imprimir">
-				<button onClick={printPhrase} title='Imprimir'>
-					<img src={imprimir} alt="Imprimir"/>
-				</button>
-			</div>
+				</div>
 			
-		  </div>
+				<div className="Imprimir">
+					<button onClick={printPhrase} title='Imprimir'>
+						<img src={imprimir} alt="Imprimir"/>
+					</button>
+				</div>
+				<div className="salir">
+						<p>Dale al lector para salir de la pantalla</p>
+				</div>
+			</div>		
+		 
 		);
 	  }
 	return (
