@@ -98,7 +98,6 @@ html, body {
     box-sizing: border-box; /* Asegura que padding y borde se incluyan en las dimensiones totales */
     text-align: center; /* Centra el texto */
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-    flex: 0 0 auto; /* Permitir que los elementos crezcan según sea necesario */
     width: auto; /* Ajusta el ancho al contenido */
     min-width: 30%; /* Ancho mínimo para cada elemento */
     margin-right: 5px; /* Ajusta el espacio entre los elementos */
