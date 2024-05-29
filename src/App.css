@@ -344,6 +344,8 @@ html, body {
     white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
     padding: 0; /* Eliminar padding adicional */
     height: auto;
+    font-weight: bold; /* Negrita para el nombre */
+
 }
 
 

@@ -257,7 +257,7 @@ function App() {
 									src={`images/${matchedItem.id}.png`}
 									alt={matchedItem.name}
 									className='image-word'
-									style={{ objectFit: 'cover', width: '30%', height: '50%' }}
+									style={{ objectFit: 'cover', width: '50%', height: '70%' }}
 									/>
 								<span className='word'>{word}</span>
 							</div>
