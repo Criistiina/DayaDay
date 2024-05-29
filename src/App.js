@@ -242,24 +242,24 @@ function App() {
 		  <div className='lector-container'>
 			<div className='lector-big' onClick={() => setShowPhrase(false)}>
 				<div className='word-items-container'> 
-				{phrase.map((word) => {
-					const matchedItem = allWords.find((item) => item.name === word);
-					if (matchedItem) {
-					return (
-						<div className='word-item' key={matchedItem.id}>
-							<div className='word-with-image' >
-								<img
-								src={`images/${matchedItem.id}.png`}
-								alt={matchedItem.name}
-								className='image-word'
-								/>
-							<span className='word'>{word}</span>
+					{phrase.map((word) => {
+						const matchedItem = allWords.find((item) => item.name === word);
+						if (matchedItem) {
+						return (
+							<div className='word-item' key={matchedItem.id}>
+								<div className='word-with-image' >
+									<img
+									src={`images/${matchedItem.id}.png`}
+									alt={matchedItem.name}
+									className='image-word'
+									/>
+								<span className='word'>{word}</span>
+								</div>
 							</div>
-						</div>
-					);
-					}
-					return null;
-				})}			
+						);
+						}
+						return null;
+					})}			
 				</div>
 			</div>
 			<div className="Imprimir">
@@ -283,8 +283,14 @@ function App() {
 								onClick={putFullScreen}
 								title='Activar pantalla completa'
 								><img src={pantallaIcon} alt="Pantalla completa"/>
+							</button>
+								<img
+									className='icon'
+									src='logo1.jpeg'
+									alt='logo'
+									title='Logo de la aplicación'
+								/> 
 						
-						</button>
 					
 					</label>
 				
@@ -295,12 +301,7 @@ function App() {
 						style={{ display: 'none' }}
 						onChange={handleFileChange}
 						/>
-						<img
-					className='icon'
-					src='logo1.jpeg'
-					alt='logo'
-					title='Logo de la aplicación'
-				/> 
+						
 				</div>
 				
 				<div className={`menu-options ${showPhrase ? 'menu-hidden' : ''}`}>

@@ -17,30 +17,35 @@ html, body {
   }
 
 
-
 /* Estilos para los elementos dentro del contenedor principal */
 .menu-options {
 	display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     max-width: 100%;
     width: 100%; /* Ocupa todo el ancho disponible */
-    height: 100%; /* Ocupa toda la altura disponible */
+    min-height: 50%; /* Altura mínima cuando la pantalla se reduce */
+    height: auto; /* Altura ajustada automáticamente */
 }
+
 .menu-left,
 .menu-right {
 	display: flex;
     flex-direction: row;
     overflow-x: auto;
     align-items: center;
+
 }
 
 .menu-left {
-    width: 14%; /* Ancho fijo para el menú izquierdo */
+    width: 35%; /* Ancho fijo para el menú izquierdo */
+    min-width: 110px; /* Ancho mínimo para cuando la pantalla se reduzca */
+
 }
 
 .menu-right {
-    width: 20%; /* Ancho fijo para el menú derecho */
+    width: 50%; /* Ancho fijo para el menú derecho */
+    min-width: 170px; /* Ancho mínimo para cuando la pantalla se reduzca */
 }
 
 .menu-left button,
@@ -63,8 +68,8 @@ html, body {
 
 /* Estilos del lector */
 .lector {
-	width: 80%; /* Reduce el ancho del contenedor */
-    max-width: 80%; /* Asegura que el ancho máximo no sea superior al 50% */
+    width: 90%; /* Reduce el ancho del contenedor */
+    max-width: 90%; /* Asegura que el ancho máximo no sea superior al 50% */
     display: flex;
     justify-content: flex-start; /* Alinea los elementos al principio */
     align-items: center;
@@ -77,49 +82,67 @@ html, body {
     white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
     position: relative; /* Asegura que los elementos dentro se posicionen correctamente */
     z-index: 1; /* Ajusta el z-index según sea necesario */
-}
 
+}
 
 /* Estilos de los items dentro del lector */
 .lector .word-item {
-	margin: 0.5% 0; /* Reduce el espacio vertical entre los ítems */
+    margin: 0; /* Elimina espacio vertical entre los ítems */
     font-weight: bold; /* Negrita para el nombre */
     display: flex;
     flex-direction: column;
-    align-items: left;
-    justify-content: center;
+    align-items: center; /* Centra horizontalmente */
     background-color: white; /* Fondo blanco para cada ítem */
-    padding: 10px; /* Añade un padding interno */
+    padding: 2%; /* Ajusta el padding interno */
     border-radius: 5px; /* Añade un radio de borde */
     box-sizing: border-box; /* Asegura que padding y borde se incluyan en las dimensiones totales */
     text-align: center; /* Centra el texto */
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-    word-wrap: break-word; /* Permite que las palabras largas se dividan en varias líneas */
-    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el contenido se corta */
-
+    flex: 0 0 auto; /* Permitir que los elementos crezcan según sea necesario */
+    width: auto; /* Ajusta el ancho al contenido */
+    min-width: 30%; /* Ancho mínimo para cada elemento */
+    margin-right: 5px; /* Ajusta el espacio entre los elementos */
+    margin-bottom: 5px; /* Ajusta el espacio vertical entre los elementos */
+    height: auto;
+    /* Estilos para dispositivos móviles */
+    @media (max-width: 800px) {
+        flex: 0 0 45%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 45%; /* Establece el ancho máximo del ítem */
+        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+    }
 }
+
+
 
 /* Estilos del contenido dentro de cada item */
 .lector .word-with-image {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%; /* Establece un ancho fijo para la imagen */
+    justify-content: center;
+    width: 100%; /* Ancho completo del contenedor */
 }
 
 /* Estilos de la imagen dentro del item */
 .lector .image-word {
     width: 100%; /* Establece un ancho fijo para la imagen */
     height: auto; /* Mantiene la proporción de la imagen */
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
 }
-
+/* Asegurar consistencia de tamaño en imagen y texto */
+.lector .image-word, .lector .word-below-image {
+    max-width: 100%;
+    flex: 1;
+}
 /* Estilos del texto debajo de la imagen */
 .lector .word-below-image {
     margin-top: 5px; /* Ajusta el margen superior del texto */
     text-align: center; /* Centra el texto */
     width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) cuando el texto se desborda */
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
 }
-
 /* Ajuste de estilo adicional para la imagen */
 .lector .word-with-image img {
     max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
@@ -182,7 +205,7 @@ html, body {
 }
   
   .item span {
-	font-size: 85%; /* Tamaño de fuente deseado para el nombre */
+	font-size: 60%; /* Tamaño de fuente deseado para el nombre */
 	font-weight: bold; /* Negrita para el nombre */
 	text-align: center;
   }
@@ -287,7 +310,7 @@ html, body {
 .lector-container {
     background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
     width: 100%; /* Ancho del viewport */
-    height: 100vh; /* Alto del viewport */
+    height: 100%; /* Alto del viewport */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -296,63 +319,66 @@ html, body {
     left: 0; /* Desde la parte izquierda */
     z-index: 9999; /* Colocarlo por encima de otros elementos */
     overflow: hidden; /* Oculta el scroll interno */
-	
-}
-
-.lector-big {
-	padding: 3%; /* Ajustar el relleno interno */
+    padding: 0;
+    margin: 0;
+}.lector-big {
+    padding: 1%; /* Ajustar el relleno interno */
     display: flex;
     justify-content: flex-start; /* Alinear los elementos al principio horizontalmente */
     align-items: center; /* Centrar verticalmente */
     margin: 15% auto; /* Ajustar automáticamente el margen horizontal para centrar y aumentar el margen vertical */
-    max-width: 80%; /* Establecer el ancho máximo del contenedor */
+    width: 95%; /* Ancho del contenedor */
     background-color: white; /* Fondo blanco */
     border: 2px solid black; /* Borde negro */
     border-radius: 10px; /* Radio de borde */
-    overflow-x: visible; /* Permitir desplazamiento horizontal si los elementos no caben */
+    overflow-x: auto; /* Permitir desplazamiento horizontal si los elementos no caben */
     white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
-
+    height: auto;
 }
 
+/* Estilos de los items dentro del lector */
 .lector-big .word-item {
-	flex: 0 0 15%; /* Ajustar el tamaño de cada ítem a un 15% del contenedor */
-    margin: 1%; /* Espacio alrededor de cada ítem */
+    flex: 0 0 auto; /* Ajustar el tamaño de cada ítem */
     box-sizing: border-box; /* Incluir padding y border en el tamaño total del ítem */
     display: flex;
     flex-direction: column;
     align-items: center;
     white-space: nowrap; /* Evitar que los elementos se envuelvan a la siguiente línea */
+    margin: 0; /* Eliminar espacio entre ítems */
+    padding: 0; /* Eliminar padding adicional */
+    width: auto; /* Ajustar el ancho al contenido */
+    margin-right: -5px; /* Ajustar el espacio entre los elementos */
 }
 
 .lector-big .word-item .word-with-image {
     display: flex;
     flex-direction: column;
     align-items: center;
-	width: 100%; /* Asegurar que el contenido ocupe todo el ancho del ítem */
-    height: 100%; /* Asegurar que el contenido ocupe todo el alto del ítem */
-    margin-bottom: 10%; /* Margen inferior de la imagen y la palabra */
+    width: 100%; /* Asegurar que el contenido ocupe todo el ancho del ítem */
+    height: auto; /* Ajustar la altura automáticamente */
 }
+
 .lector-big .word-items-container {
     display: flex;
     flex-wrap: nowrap; /* Asegurar que los elementos no se envuelvan a la siguiente línea */
     overflow-x: auto; /* Permitir desplazamiento horizontal si los elementos no caben */
-	gap: 1%; /* Reducir el espacio entre los ítems */
-	justify-content: flex-start; /* Alinear los elementos al principio */
+    justify-content: flex-start; /* Alinear los elementos al principio */
     align-items: center; /* Centrar verticalmente */
+    gap: 4%; /* Reducir el espacio entre los ítems */
 }
 
 .word-item .image-word {
-	width: 70%;
+    width: 70%;
     height: auto;
     margin-bottom: 5%; /* Ajustar el margen inferior de la imagen */
-    max-width: 100px; /* Tamaño máximo de la imagen */
-    max-height: 100px; /* Tamaño máximo de la imagen */
+    max-width: 100%; /* Tamaño máximo de la imagen */
+    max-height: 100%; /* Tamaño máximo de la imagen */
 }
-.word-item{
-	margin-left: 5%;
-	padding: 0 auto;
-	box-sizing: border-box; /* Incluir padding y border en el tamaño total del ítem */
 
+.word-item {
+    box-sizing: border-box; /* Incluir padding y border en el tamaño total del ítem */
+    padding: 0; /* Eliminar padding interno */
+    min-width: auto; /* Ajustar el ancho automáticamente */
 }
  
 .pagination {
@@ -456,13 +482,12 @@ html, body {
     display: block; /* Asegura que la imagen no tenga margen extra */
 }
 .file-input-label:hover {
-    /* Agrega estilos de hover según sea necesario */
+	transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
 }
-.icon {
-    width: 5%; /* Cambia el ancho al 15% del contenedor */
-    position: fixed; /* Establece posición fija para que se mantenga en la pantalla */
-    top: 5%; /* Alinea el icono en la parte inferior */
-    right: 10%; /* Alinea el icono a la izquierda */
+.file-input-label .icon {
+    width: 10%; /* Cambia el ancho al 15% del contenedor */
+    position: relative; 
+    left: 85%; /* Alinea el icono a la izquierda */
 }
 
  /*RESPONSIVE*/
@@ -472,6 +497,7 @@ html, body {
     .item {
         width: calc(50% / 2);
     }
+    
 }
 
 /* Estilos para dispositivos móviles */
@@ -485,5 +511,45 @@ html, body {
     .item {
     	width: calc(50% / 2);
 
+    }
+}
+/* Estilos para dispositivos  */
+@media (max-width: 800px) {
+    .lector-big .word-item {
+        flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 20%; /* Establece el ancho máximo del ítem */
+        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+    }
+}
+/* Estilos para dispositivos  */
+@media (max-width: 600px) {
+    .lector-big  .word-with-image {
+        flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 100%; /* Establece el ancho máximo del ítem */
+        font-size: 75%; /* Reducir el tamaño de la fuente para las palabras */
+    }
+}
+/* Estilos para dispositivos  */
+@media (max-width: 500px) {
+    .lector-big  .word-with-image {
+        flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 80%; /* Establece el ancho máximo del ítem */
+        font-size: 55%; /* Reducir el tamaño de la fuente para las palabras */
+    }
+}
+/* Estilos para dispositivos de tamaño mediano */
+@media (max-width: 1024px) {
+    .lector-big .word-item {
+        flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 20%; /* Establece el ancho máximo del ítem */
+        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+    }
+}
+/* Estilos para dispositivos de tamaño mediano */
+@media (max-width: 1024px) {
+    .lector .word-item {
+        flex: 0 0 30%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 30%; /* Establece el ancho máximo del ítem */
+        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
     }
 }
