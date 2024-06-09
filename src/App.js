@@ -257,7 +257,7 @@ function App() {
 									src={`images/${matchedItem.id}.png`}
 									alt={matchedItem.name}
 									className='image-word'
-									style={{ objectFit: 'cover', width: '50%', height: '70%' }}
+									style={{ maxwidth: '100px', maxheight: '100px', objectFit: 'cover', width: '50%', height: 'auto' }}		
 									/>
 								<span className='word'>{word}</span>
 							</div>
@@ -275,7 +275,7 @@ function App() {
 					</button>
 				</div>
 				<div className="salir">
-						<p>Dale al lector para salir de la pantalla</p>
+						<p>Pulse el lector para salir de la pantalla</p>
 				</div>
 			</div>		
 		 
@@ -342,7 +342,7 @@ function App() {
 												src={`images/${matchedItem.id}.png`}
 												alt={matchedItem.name}
 												className='image-word'
-												style={{ objectFit: 'cover', width: '30%', height: '100%' }}
+												style={{ objectFit: 'contain', width: '30%', height: '100%' }}
 											/>
                         					<div className='word-below-image'>{word}</div>
 										</div>
@@ -390,7 +390,7 @@ function App() {
 						<img src={`images/${place.id}.png`}
 							alt={place.name}
 							className='image-word'
-							style={{ objectFit: 'cover', width: '30%', height: '100%' }}
+							style={{ objectFit: 'contain', width: '50%', height: '100%' }}
 							/>
 						<span>{place.name}</span>
 						<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(place)}} title={`Eliminar ${place.name}`}>
@@ -403,7 +403,7 @@ function App() {
 				
 					{photoURL && (
 						<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}>
-							<img src={photoURL} alt='Imagen seleccionada'style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+							<img src={photoURL} alt='Imagen seleccionada'style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
 							<span>{inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}</span>
 							<button className='delete-button' onClick={(e) => { e.stopPropagation(); handleDeleteItem({ id: "photo" })}} title={`Eliminar ${inputRef.current.files[0].name.replace('.png', '')}`}>
 								<img src={cancelar} alt="Eliminar" />

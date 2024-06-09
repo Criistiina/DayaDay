@@ -325,7 +325,7 @@ html, body {
     justify-content: flex-start; /* Alinear los elementos al principio horizontalmente */
     align-items: center; /* Centrar verticalmente */
     margin: 15% auto; /* Ajustar automáticamente el margen horizontal para centrar y aumentar el margen vertical */
-    width: 70%; /* Ancho del contenedor */
+    width: 90%; /* Ancho del contenedor */
     background-color: white; /* Fondo blanco */
     border: 2px solid black; /* Borde negro */
     border-radius: 10px; /* Radio de borde */
@@ -345,7 +345,7 @@ html, body {
     padding: 0; /* Eliminar padding adicional */
     height: auto;
     font-weight: bold; /* Negrita para el nombre */
-
+    width: 20%;
 }
 
 
@@ -357,6 +357,7 @@ html, body {
     justify-content: flex-start; /* Alinear los elementos al principio */
     align-items: center; /* Centrar verticalmente */
     gap: 4%; /* Reducir el espacio entre los ítems */
+    
 }
 
 .word-item .image-word {
@@ -528,6 +529,8 @@ html, body {
         flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 20%; /* Establece el ancho máximo del ítem */
         font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+        margin-left: 3%;
+
     }
 }
 /* Estilos para dispositivos  */
@@ -536,6 +539,8 @@ html, body {
         flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 100%; /* Establece el ancho máximo del ítem */
         font-size: 75%; /* Reducir el tamaño de la fuente para las palabras */
+        margin-left: 3%;
+
     }
 }
 /* Estilos para dispositivos  */
@@ -544,15 +549,17 @@ html, body {
         flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 80%; /* Establece el ancho máximo del ítem */
         font-size: 55%; /* Reducir el tamaño de la fuente para las palabras */
+        margin-left: 3%;
+
     }
 }
 /* Estilos para dispositivos de tamaño mediano */
 @media (max-width: 1024px) {
     .lector-big .word-item {
         flex: 0 0 15%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
-        max-width: 20%; /* Establece el ancho máximo del ítem */
+        max-width: 10%; /* Establece el ancho máximo del ítem */
         font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
-
+        margin-left: 4%;
     }
 }
 /* Estilos para dispositivos de tamaño mediano */
@@ -561,5 +568,6 @@ html, body {
         flex: 0 0 30%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
         max-width: 30%; /* Establece el ancho máximo del ítem */
         font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+        margin-right: -10%;
     }
 }
