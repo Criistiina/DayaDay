@@ -7,40 +7,27 @@ const places = [
 const actions = [
 	{ name: "QUIERO", id: "quiero", type: "GENERAL", subtype: "WANT" },
 	{ name: "NO QUIERO", id: "no quiero", type: "GENERAL", subtype: "NO_WANT" },
+]
+const verbs = [
+	{ name: "COMER", id: "comer", level: 2, type: ["WANT", "NO_WANT"], subtype: "FOOD" },
+	{ name: "DESAYUNAR", id: "desayunar", level: 2,  type: ["WANT", "NO_WANT"], subtype: "BREAKFAST" },
+	{ name: "COGER", id: "coger", level: 2,  type: ["WANT", "NO_WANT"],subtype: "TAKE"  },
+	{ name: "BEBER", id: "beber", level: 2,  type: ["WANT", "NO_WANT"], subtype: "DRINK" },
+	{ name: "IR", id: "ir", level: 2,  type: ["WANT", "NO_WANT"], subtype: "PLACE" },
+	{ name: "DORMIR", id: "dormir",  type: ["WANT", "NO_WANT"], subtype: "FINISH" },
+	{ name: "JUGAR", id: "jugar", level: 2,  type: ["WANT", "NO_WANT"],subtype: "PLAY" },
+	{ name: "VER", id: "ver", level: 2,  type: ["WANT", "NO_WANT"],subtype: "WHATCH" },
+	{ name: "ABRIR", id: "abrir", level: 2,  type: ["WANT", "NO_WANT"], subtype: "OPEN" },
+	{ name: "DUCHAR", id: "DUCHARSE", level: 2,  type: ["WANT", "NO_WANT"], subtype: "FINISH" },
+	{ name: "BAÑAR", id: "BAÑAR", level: 2,  type: ["WANT", "NO_WANT"], subtype: "FINISH" },
+	{ name: "PASEAR", id: "PASEAR", level: 2,  type: ["WANT", "NO_WANT"],subtype: "FINISH" },
+	{ name: "RELAJACIÓN", id: "RELAJACION", level: 2,  type: ["WANT", "NO_WANT"], subtype: "FINISH" },
+	{ name: "TIRAR", id: "tirar", level: 2,  type: ["WANT", "NO_WANT"],subtype: "TIRAR" },
+	{ name: "ESCUCHAR MÚSICA", id: "ESCUCHAR MÚSICA", level: 2,  type: ["WANT", "NO_WANT"], subtype: "ESCUCHAR" },
+	
 ];
 
-const verbs = [
-	{ name: "COMER", id: "comer", level: 2, type: "WANT", subtype: "FOOD" },
-	{ name: "DESAYUNAR", id: "desayunar", level: 2, type: "WANT", subtype: "BREAKFAST" },
-	{ name: "COGER", id: "coger", level: 2, type: "WANT", subtype: "TAKE"  },
-	{ name: "BEBER", id: "beber", level: 2, type: "WANT", subtype: "DRINK" },
-	{ name: "IR", id: "ir", level: 2, type: "WANT", subtype: "PLACE" },
-	{ name: "DORMIR", id: "dormir", type: "WANT", subtype: "FINISH" },
-	{ name: "JUGAR", id: "jugar", level: 2, type: "WANT", subtype: "PLAY" },
-	{ name: "VER", id: "ver", level: 2, type: "WANT", subtype: "WHATCH" },
-	{ name: "ABRIR", id: "abrir", level: 2, type: "WANT", subtype: "OPEN" },
-	{ name: "DUCHAR", id: "DUCHARSE", level: 2, type: "WANT", subtype: "FINISH" },
-	{ name: "BAÑAR", id: "BAÑAR", level: 2, type: "WANT", subtype: "FINISH" },
-	{ name: "PASEAR", id: "PASEAR", level: 2, type: "WANT", subtype: "FINISH" },
-	{ name: "RELAJACIÓN", id: "RELAJACION", level: 2, type: "WANT", subtype: "FINISH" },
-	{ name: "TIRAR", id: "tirar", level: 2, type: "WANT", subtype: "TIRAR" },
-	{ name: "ESCUCHAR MÚSICA", id: "ESCUCHAR MÚSICA", level: 2, type: "WANT", subtype: "ESCUCHAR" },
-	{ name: "COMER", id: "comer", level: 2, type: "NO_WANT", subtype: "FOOD" },
-	{ name: "DESAYUNAR", id: "desayunar", level: 2, type: "NO_WANT", subtype: "BREAKFAST" },
-	{ name: "COGER", id: "coger", level: 2, type: "NO_WANT", subtype: "TAKE"  },
-	{ name: "BEBER", id: "beber", level: 2, type: "NO_WANT", subtype: "DRINK" },
-	{ name: "IR", id: "ir", level: 2, type: "NO_WANT", subtype: "PLACE" },
-	{ name: "DORMIR", id: "dormir", type: "NO_WANT", subtype: "FINISH" },
-	{ name: "JUGAR", id: "jugar", level: 2, type: "NO_WANT", subtype: "PLAY" },
-	{ name: "VER", id: "ver", level: 2, type: "NO_WANT", subtype: "WHATCH" },
-	{ name: "ABRIR", id: "abrir", level: 2, type: "NO_WANT", subtype: "OPEN" },
-	{ name: "DUCHAR", id: "DUCHARSE", level: 2, type: "NO_WANT", subtype: "FINISH" },
-	{ name: "BAÑAR", id: "BAÑAR", level: 2, type: "NO_WANT", subtype: "FINISH" },
-	{ name: "PASEAR", id: "PASEAR", level: 2, type: "NO_WANT", subtype: "FINISH" },
-	{ name: "RELAJACIÓN", id: "RELAJACION", level: 2, type: "NO_WANT", subtype: "FINISH" },
-	{ name: "TIRAR", id: "tirar", level: 2, type: "NO_WANT", subtype: "TIRAR" },
-	{ name: "ESCUCHAR MÚSICA", id: "ESCUCHAR MÚSICA", level: 2, type: "NO_WANT", subtype: "ESCUCHAR" },
-];
+
 
 const foods = [
 	{

@@ -150,12 +150,23 @@ html, body {
 
 }
 
+.items {
+	display: flex;
+	justify-content: center;
+	margin: 3% 0;
+	flex-wrap: wrap;
+    align-items: center;
+	overflow-x: auto;
+    white-space: nowrap; /* Asegura que los ítems estén en una sola línea */
+    -webkit-overflow-scrolling: touch; /* Habilita el desplazamiento suave en iOS */
+}
+
 .item {
-	flex: 0 0 calc(25% - 20px); /* Calcula el ancho del elemento para mostrar 3 elementos por fila */
+	flex: 0 0 calc(25% - 20px); /* Calcula el ancho del elemento para mostrar 4 elementos por fila */
 	min-width: 25%;
     width: 100px;
 	height: 100px;
-	border:  1px solid black; ;
+	border: 1px solid black;
 	padding: 2%;
 	display: flex;
 	gap: 10%;
@@ -168,19 +179,6 @@ html, body {
 	position: relative; /* Agregamos posición relativa */
     flex-shrink: 0; /* Permite que los elementos se reduzcan de tamaño si es necesario */
     margin-bottom: 2%; /* Añade un margen inferior para separar los elementos */
-    
-}
-  
-.items {
-	display: flex;
-	justify-content: center;
-	margin: 3% 0;
-	flex-wrap: wrap;
-    align-items: center;
-	overflow-x: auto;
-    white-space: nowrap; /* Asegura que los ítems estén en una sola línea */
-    -webkit-overflow-scrolling: touch; /* Habilita el desplazamiento suave en iOS */
-
 }
 /* Estilos del contenido dentro de cada item */
 .item .word-with-image {
@@ -277,32 +275,31 @@ html, body {
 	flex: 1;
   }
   
-  .actions-container {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start; /* Alinea las acciones al inicio */
-  }
-  
-  .actions-container .item {
-    margin-bottom: 5%; /* Reducir el espacio entre las filas de acciones */
-  }
-  
-  .verbs-container {
-	display: flex;
-    flex-wrap: wrap;
-    flex: 1; /* Ocupa todo el espacio restante */
-
-
-  }
-  
-  .verbs-container .item {
-	flex: 1;
-    margin-right: 5%; /* Reducir el espacio entre los verbos */
-    margin-bottom: 5%; /* Reducir el espacio entre las filas de verbos */
-    padding: 10%;
-    background-color: #ffffff;
-    cursor: pointer;
+ 
+  .actions-and-verbs {
+    display: flex;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    justify-content: space-between; /* Asegura que los contenedores estén espaciados uniformemente */
 }
+
+.actions-container {
+    display: flex;
+    flex-direction: column;
+    width: 55%; /* Ajusta el ancho del contenedor de acciones */
+    gap: 25px; /* Espacio entre los items */
+    width: calc(33.33% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+}
+
+.verbs-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 45%; /* Ajusta el ancho del contenedor de verbos */
+    gap: 10px; /* Espacio entre los items */
+    width: calc(66.66% - 5px); /* 2/3 del ancho total menos el espacio entre items */
+
+}
+
 .lector-container {
     background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
     width: 100%; /* Ancho del viewport */
@@ -555,9 +552,8 @@ html, body {
 }
 /* Estilos para dispositivos de tamaño mediano */
 @media (max-width: 1024px) {
-    .lector-big .word-item {
+    .lector-big .word-item  {
         flex: 0 0 15%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
-        max-width: 10%; /* Establece el ancho máximo del ítem */
         font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
         margin-left: 4%;
     }

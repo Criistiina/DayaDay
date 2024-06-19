@@ -28,6 +28,8 @@ function App() {
 	const [showConfirmation, setShowConfirmation] = useState(false);
 	const [itemToDelete, setItemToDelete] = useState(null);
     const [photoURL, setPhotoURL] = useState("");
+
+
 	const inputRef = useRef(null);
 
 	const itemsPerPage = 6; // Número de elementos por página
@@ -40,16 +42,14 @@ function App() {
 	
 	
 	// Lógica para obtener los elementos a mostrar en la página actual según el tipo actual y la paginación
-	const indexOfLastItem = currentPage * itemsPerPage;
-	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-	const currentItemsToShow = allWords
-	  .filter((word) => word.type === currentType[currentType.length - 1])
-	  .slice(indexOfFirstItem, indexOfLastItem);
-	  // Calcula el número total de páginas para el tipo actual
-	  const totalPages = Math.ceil(
-		allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
-	  );
-	
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const filteredWords = allWords.filter((word) => word.type === currentType[currentType.length - 1]);
+const currentItemsToShow = filteredWords.slice(indexOfFirstItem, indexOfLastItem);
+
+// Calcula el número total de páginas para el tipo actual
+const totalPages = Math.ceil(filteredWords.length / itemsPerPage);
+
 	
 	  // Función para cambiar de página
 	  const paginate = (pageNumber) => {
@@ -60,64 +60,56 @@ function App() {
 	  const resetPagination = () => {
         setCurrentPage(1);
     };
-	  const handleFileChange = (event) => {
+	const handleFileChange = (event) => {
 		const files = event.target.files; // Obtener todos los archivos seleccionados
+		const currentTypeValue = currentType[currentType.length - 1]; // Obtener el tipo actual
 		if (files) {
-		  for (let i = 0; i < files.length; i++) {
-			const file = files[i];
-			const reader = new FileReader();
-			reader.onloadend = () => {
-			  console.log("File loaded:", file);
-			  console.log("File loaded:", reader.result);
-			  setPhotoURL(reader.result);
-			  addItem(); // Llama a addItem para agregar cada imagen
-			};
-			reader.readAsDataURL(file);
-		  }
-		}
-    };
-	
-	const addItem = () => {
-		if (photoURL) {
-			const newItem = {
-				id: Date.now(),
-				image: photoURL,
-				name: "New Item",
-				type: currentType[currentType.length - 1], // Asegura que el tipo actual se establezca correctamente
-
-			};
-			console.log("Nuevo item:", newItem); // Agregamos un console.log para verificar el nuevo item
-			setItems((prevItems) => [...prevItems, newItem]); // Agregar el nuevo item a la lista items
+			for (let i = 0; i < files.length; i++) {
+				const file = files[i];
+				const reader = new FileReader();
+				reader.onloadend = () => {
+					addItem(file.name.replace(/\.[^.]+$/, ''), reader.result, currentTypeValue); // Llama a addItem y pasa el nombre del archivo sin la extensión, la URL de la imagen, y el tipo actual
+				};
+				reader.readAsDataURL(file);
+			}
 		}
 	};
 	
+	const addItem = (name, imageUrl, type) => {
+    const newItem = {
+        id: Date.now(),
+        image: imageUrl,
+        name: name,
+        type: type,
+    };
+    setAllwords((prevWords) => [...prevWords, newItem]); // Agregar el nuevo ítem a la lista allWords
+    resetPagination(); // Resetear la paginación al añadir un nuevo ítem
+};
+
 	const handleDeleteItem = (item) => {
 		setShowConfirmation(true); // Mostrar el modal de confirmación
 		setItemToDelete(item); // Establecer el item a eliminar en el estado
 	};
-
-		// Función para confirmar la eliminación del elemento
-			const confirmDeleteItem = () => {
-				console.log("Confirmar eliminación:", itemToDelete);
-				// Verificar si el elemento a eliminar es un elemento predeterminado
-				const isDefaultItem = allWords.some((word) => word.id === itemToDelete.id);
-				if (isDefaultItem) {
-					// Si es un elemento predeterminado, solo elimínalo de la lista de palabras
-					const updatedAllWords = allWords.filter((word) => word.id !== itemToDelete.id);
-					setAllwords(updatedAllWords);
-				} else {
-					// Si no es un elemento predeterminado, procede con la eliminación del elemento
-					const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
-					setItems(updatedItems);
-				}
-
-				if (itemToDelete.id === "photo") {
-					// Si el elemento a eliminar es una foto recientemente seleccionada
-					setPhotoURL(""); // Limpiar la URL de la foto
-				}
-				setShowConfirmation(false); // Ocultar el botón de confirmación
-				setItemToDelete(null); // Limpiar itemToDelete
-			};
+	const confirmDeleteItem = () => {
+		console.log("Confirmar eliminación:", itemToDelete);
+	
+		// Actualizar la lista allWords eliminando el ítem
+		const updatedAllWords = allWords.filter((word) => word.id !== itemToDelete.id);
+		setAllwords(updatedAllWords);
+	
+		// Si el ítem eliminado es un ítem dinámico, actualizamos la lista de items dinámicos
+		const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
+		setItems(updatedItems);
+	
+		if (itemToDelete.id === "photo") {
+			// Si el elemento a eliminar es una foto recientemente seleccionada
+			setPhotoURL(""); // Limpiar la URL de la foto
+		}
+	
+		setShowConfirmation(false); // Ocultar el botón de confirmación
+		setItemToDelete(null); // Limpiar itemToDelete
+	};
+	
 
 		// Función para cancelar la eliminación del elemento
 		const cancelDeleteItem = () => {
@@ -168,23 +160,27 @@ function App() {
 	function putNewWord(word) {
 		const copyOfPhare = [...phrase];
 		copyOfPhare.push(word.name);
-
+	
 		if (word.subtype === "FINISH") {
 			// No cambiamos el estado currentType para permitir más selecciones
-		} else {
+		}
+		else if (word.type === "GENERAL"){
+			
+		}
+		 else {
 			const copyOfCurrentType = [...currentType];
 			copyOfCurrentType.push(word.subtype);
 			setCurrentType(copyOfCurrentType);
 		}
 		if (word.subtype === "GENERAL") {
-            return;
-        }
-
+			return;
+		}
+	
 		setPhrase(copyOfPhare);
-        resetPagination(); // Resetear la paginación al añadir una nueva palabra
-
+		resetPagination(); // Resetear la paginación al añadir una nueva palabra
+	
 	}
-
+	
 	function goBack() {
 		const copyOfPhare = [...phrase];
 		copyOfPhare.pop();
@@ -245,29 +241,28 @@ function App() {
 	
 	if (showPhrase) {
 		return (
-		  <div className='lector-container'>
-			<div className='lector-big' onClick={() => setShowPhrase(false)}>
-				<div className='word-items-container'> 
-					{phrase.map((word) => {
-						const matchedItem = allWords.find((item) => item.name === word);
-						if (matchedItem) {
-						return (
-							<div className='word-item' key={matchedItem.id}>
-									<img
-									src={`images/${matchedItem.id}.png`}
-									alt={matchedItem.name}
-									className='image-word'
-									style={{ maxwidth: '100px', maxheight: '100px', objectFit: 'cover', width: '50%', height: 'auto' }}		
-									/>
-								<span className='word'>{word}</span>
-							</div>
-							
-						);
-						}
-						return null;
-					})}			
-				</div>
-				</div>
+			<div className='lector-container'>
+            <div className='lector-big' onClick={() => setShowPhrase(false)}>
+                <div className='word-items-container'>
+                    {phrase.map((word) => {
+                        const matchedItem = allWords.find((item) => item.name === word);
+                        if (matchedItem) {
+                            return (
+                                <div className='word-item' key={matchedItem.id}>
+                                    <img
+                                        src={matchedItem.image || `images/${matchedItem.id}.png`}
+                                        alt={matchedItem.name}
+                                        className='image-word'
+                                        style={{  objectFit: 'cover', width: '50%', height: 'auto' }}
+                                    />
+                                    <span className='word'>{word}</span>
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
+                </div>
+            </div>
 			
 				<div className="Imprimir">
 					<button onClick={printPhrase} title='Imprimir'>
@@ -332,23 +327,23 @@ function App() {
 						onClick={showLector}
 						title='Pulsa para agrandar y leer'
 					>
-						{phrase.map((word, index) => {
-							const matchedItem = allWords.find(item => item.name === word);
-							if (matchedItem) {
-								return (
-									<div className='word-item' key={index}>
-										<div className='word-with-image' >
-											<img
-												src={`images/${matchedItem.id}.png`}
-												alt={matchedItem.name}
-												className='image-word'
-												style={{ objectFit: 'contain', width: '30%', height: '100%' }}
-											/>
-                        					<div className='word-below-image'>{word}</div>
-										</div>
+					 {phrase.map((word, index) => {
+						const matchedItem = allWords.find(item => item.name === word);
+						if (matchedItem) {
+							return (
+								<div className='word-item' key={index}>
+									<div className='word-with-image'>
+										<img
+											src={matchedItem.image || `images/${matchedItem.id}.png`}
+											alt={matchedItem.name}
+											className='image-word'
+											style={{ objectFit: 'contain', width: '30%', height: '100%' }}
+										/>
+										<div className='word-below-image'>{word}</div>
 									</div>
-								);
-							}
+								</div>
+							);
+					}
 							return null;
 						})}
 					</div>
@@ -384,34 +379,56 @@ function App() {
 				onTouchStart={handleTouchStart}
 				onTouchEnd={handleTouchEnd}
 				>
-					{currentItemsToShow.map((place) => (
-					<div className='item' key={place.id} onClick={() => putNewWord(place)}
-					title={`Seleccionar ${place.name}`}>										
-						<img src={`images/${place.id}.png`}
-							alt={place.name}
-							className='image-word'
-							style={{ objectFit: 'contain', width: '50%', height: '100%' }}
-							/>
-						<span>{place.name}</span>
-						<button  className="delete-button" onClick={(e) => {e.stopPropagation(); handleDeleteItem(place)}} title={`Eliminar ${place.name}`}>
-								<img src={cancelar} alt="Eliminar" />
-						</button>							
-						
-					</div>
-					))}
-								
-				
-					{photoURL && (
-						<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}>
-							<img src={photoURL} alt='Imagen seleccionada'style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
-							<span>{inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}</span>
-							<button className='delete-button' onClick={(e) => { e.stopPropagation(); handleDeleteItem({ id: "photo" })}} title={`Eliminar ${inputRef.current.files[0].name.replace('.png', '')}`}>
-								<img src={cancelar} alt="Eliminar" />
-							</button>
-							
+					{currentType[currentType.length - 1] === "GENERAL" && (
+						<div className="actions-and-verbs">
+							<div className="actions-container">
+								{actions.map((action) => (
+									<div className="item" key={action.id} onClick={() => putNewWord(action)} title={`Seleccionar ${action.name}`} style={{ objectFit: "contain", width: "50%", height: "100%" }}>
+										<img src={`images/${action.id}.png`} alt={action.name} className="image-word" style={{ objectFit: "contain", width: "50%", height: "100%" }} />
+										<span>{action.name}</span>
+										<button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteItem(action); }} title={`Eliminar ${action.name}`}>
+											<img src={cancelar} alt="Eliminar" />
+										</button>
+									</div>
+								))}
+							</div>
+							<div className="verbs-container">
+								{verbs.concat(items.filter(item => item.type === 'verbs')).slice(0, itemsPerPage).map((verb) => (
+									<div className="item" key={verb.id} onClick={() => putNewWord(verb)} title={`Seleccionar ${verb.name}`}>
+										<img src={verb.image || `images/${verb.id}.png`} alt={verb.name} className="image-word" style={{ objectFit: "contain", width: "50%", height: "100%" }} />
+										<span>{verb.name}</span>
+										<button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteItem(verb); }} title={`Eliminar ${verb.name}`}>
+											<img src={cancelar} alt="Eliminar" />
+										</button>
+									</div>
+								))}
+							</div>
 						</div>
 					)}
-				
+						
+						{currentType[currentType.length - 1] !== "GENERAL" &&
+							currentItemsToShow.map((item) => (
+								<div className="item" key={item.id} onClick={() => putNewWord(item)} title={`Seleccionar ${item.name}`}>
+									<img src={item.image || `images/${item.id}.png`} alt={item.name} className="image-word" style={{ objectFit: "contain", width: "50%", height: "100%" }} />
+									<span>{item.name}</span>
+									<button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDeleteItem(item); }} title={`Eliminar ${item.name}`}>
+										<img src={cancelar} alt="Eliminar" />
+									</button>
+								</div>
+							))
+						}
+
+												
+				{photoURL && !allWords.some(word => word.image === photoURL) && (
+					<div className='item' title={`Seleccionar ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}>
+						<img src={photoURL} alt='Imagen seleccionada' style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
+						<span>{inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}</span>
+						<button className='delete-button' onClick={(e) => { e.stopPropagation(); handleDeleteItem({ id: "photo" })}} title={`Eliminar ${inputRef.current.files[0].name.replace('.png', '')}`}>
+							<img src={cancelar} alt="Eliminar" />
+						</button>
+					</div>
+				)}
+
 				{(showConfirmation && itemToDelete && (
 							<div className="confirmation-modal" >
 								<p>¿Estás seguro que deseas eliminar {itemToDelete.name ? itemToDelete.name : ` ${inputRef.current.files[0].name.replace(/\.[^.]+$/, '')}`}??</p>
@@ -423,28 +440,27 @@ function App() {
 						))}
 			</div>
 
-				{currentType[currentType.length - 1] !== "FINISH" && (
-					<div className='pagination'>
+			{currentType[currentType.length - 1] !== "FINISH" && (
+				<div className='pagination'>
 					<div className='pagination-info'>
-						{`${currentPage}/${Math.ceil(
-						allWords.filter((word) => word.type === currentType[currentType.length - 1]).length / itemsPerPage
-						)}`}
+						{`${currentPage}/${totalPages}`}
 					</div>
 					<div className='pagination-buttons'>
 						<button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} title='Página anterior'>
 							<img src={AnteriorIcon} alt="Anterior" style={{ width: '24px', height: '24px' }}></img>
 						</button>
-						
 						<button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages} title='Página siguiente'>
-						<img src={SiguienteIcon} alt="Siguiente" style={{ width: '24px', height: '24px' }}></img>
+							<img src={SiguienteIcon} alt="Siguiente" style={{ width: '24px', height: '24px' }}></img>
 						</button>
 					</div>
-					</div>
-				)}
+				</div>
+			)}
+
+
 				
 	  </div>
 	
   );
 }
 
-export default App;
+export default App; 
