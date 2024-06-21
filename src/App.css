@@ -468,7 +468,7 @@ html, body {
 }
 
 .file-input-label img {
-    width: 3%; /* Ajusta el tamaño según sea necesario */
+    width: 10%; /* Ajusta el tamaño según sea necesario */
     background-color: transparent; /* Elimina el fondo */
 }
 
@@ -484,18 +484,12 @@ html, body {
 }
 
 .pantalla-completa img {
-    width: 55%; /* Ajusta el tamaño según sea necesario */
+    width: 100%; /* Ajusta el tamaño según sea necesario */
     background-color: transparent; /* Elimina el fondo */
     display: block; /* Asegura que la imagen no tenga margen extra */
 }
-.file-input-label:hover {
-	transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
-}
-.file-input-label .icon {
-    width: 10%; /* Cambia el ancho al 15% del contenedor */
-    position: relative; 
-    left: 85%; /* Alinea el icono a la izquierda */
-}
+
+
 
  /*RESPONSIVE*/
  /* Ocultar el logo en dispositivos que no sean ordenadores */

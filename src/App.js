@@ -289,12 +289,7 @@ const totalPages = Math.ceil(filteredWords.length / itemsPerPage);
 								title='Activar pantalla completa'
 								><img src={pantallaIcon} alt="Pantalla completa"/>
 							</button>
-								<img
-									className='icon'
-									src='logo1.jpeg'
-									alt='logo'
-									title='Logo de la aplicación'
-								/> 
+								
 						
 					
 					</label>
