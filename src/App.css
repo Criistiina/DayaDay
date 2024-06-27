@@ -19,71 +19,79 @@ html, body {
 
 /* Estilos para los elementos dentro del contenedor principal */
 .menu-options {
-	display: flex;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between; /* Asegura que los menús se distribuyan uniformemente */
     align-items: center;
     max-width: 100%;
     width: 100%; /* Ocupa todo el ancho disponible */
     min-height: 50%; /* Altura mínima cuando la pantalla se reduce */
     height: auto; /* Altura ajustada automáticamente */
+    gap: 0; /* Elimina cualquier espacio entre los menús */
+    padding: 0; /* Elimina cualquier relleno */
+    margin: 0; /* Elimina cualquier margen */
 }
 
-.menu-left,
-.menu-right {
-	display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    align-items: center;
 
-}
 
 .menu-left {
-    width: 35%; /* Ancho fijo para el menú izquierdo */
-    min-width: 110px; /* Ancho mínimo para cuando la pantalla se reduzca */
-
+    flex: 2; /* Permite que el menú izquierdo ocupe su parte proporcional */
+    gap: 5%; /* Elimina cualquier espacio entre los botones */
+    margin-right: 1%;
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos al final del contenedor */
+    flex-shrink: 0; /* Evita que los menús se reduzcan demasiado */
+    padding: 0; /* Elimina cualquier relleno */
 }
 
 .menu-right {
-    width: 50%; /* Ancho fijo para el menú derecho */
-    min-width: 170px; /* Ancho mínimo para cuando la pantalla se reduzca */
+    flex: 3; /* Permite que el menú derecho ocupe el doble de espacio que el izquierdo */
+    display: flex;
+    justify-content: flex-end; /* Alinea los elementos al inicio del contenedor */
+    gap: 4%; /* Elimina cualquier espacio entre los botones */
+    margin-left: 1%;
 }
 
 .menu-left button,
 .menu-right button {
-	width: 100%; /* Ocupa todo el ancho del contenedor */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
     height: auto; /* Permite que la altura se ajuste automáticamente */
     display: flex;
     justify-content: center;
-    align-items: center;
     background: none; /* Elimina el fondo del botón */
     border: none; /* Elimina el borde del botón */
     cursor: pointer;
+    margin: 0; /* Elimina cualquier margen */
+    padding: 0; /* Elimina cualquier relleno */
 }
 
-.menu-left button img,
+.menu-left button img{
+    width: 75%; /* Asegura que las imágenes ocupen todo el ancho del botón */
+    height: auto; /* Mantener la proporción de la imagen */
+    
+}
 .menu-right button img {
-    width: 100%;
+    width: 75%; /* Asegura que las imágenes ocupen todo el ancho del botón */
     height: auto; /* Mantener la proporción de la imagen */
 }
-
 /* Estilos del lector */
 .lector {
-    width: 90%; /* Reduce el ancho del contenedor */
-    max-width: 90%; /* Asegura que el ancho máximo no sea superior al 50% */
+    width: 100%; /* Reduce el ancho del contenedor */
+    max-width: 100%; /* Asegura que el ancho máximo no sea superior al 90% */
     display: flex;
     justify-content: flex-start; /* Alinea los elementos al principio */
     align-items: center;
     border: 2px solid black;
     cursor: pointer;
-    flex: 1; /* Permite que este elemento crezca para ocupar el espacio disponible */
-    min-width: 50%; /* Ajusta el tamaño mínimo según sea necesario */
-    min-height: 100px; /* Ajusta el tamaño mínimo según sea necesario */    
+    flex: 1 0 ;
+    min-width: 65%; /* Ajusta el tamaño mínimo según sea necesario */
+    min-height: 70px; /* Ajusta el tamaño mínimo según sea necesario */    
     overflow: auto; /* Agrega una barra de desplazamiento si el contenido es demasiado grande */
     white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
     position: relative; /* Asegura que los elementos dentro se posicionen correctamente */
     z-index: 1; /* Ajusta el z-index según sea necesario */
-
+    
 }
+
 
 /* Estilos de los items dentro del lector */
 .lector .word-item {
@@ -103,12 +111,7 @@ html, body {
     margin-right: 5px; /* Ajusta el espacio entre los elementos */
     margin-bottom: 5px; /* Ajusta el espacio vertical entre los elementos */
     height: auto;
-    /* Estilos para dispositivos móviles */
-    @media (max-width: 800px) {
-        flex: 0 0 45%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
-        max-width: 45%; /* Establece el ancho máximo del ítem */
-        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
-    }
+ 
 }
 
 
@@ -199,7 +202,7 @@ html, body {
 }
   
   .item span {
-	font-size: 60%; /* Tamaño de fuente deseado para el nombre */
+	font-size: 100%; /* Tamaño de fuente deseado para el nombre */
 	font-weight: bold; /* Negrita para el nombre */
 	text-align: center;
   }
@@ -285,19 +288,19 @@ html, body {
 .actions-container {
     display: flex;
     flex-direction: column;
-    width: 55%; /* Ajusta el ancho del contenedor de acciones */
-    gap: 25px; /* Espacio entre los items */
-    width: calc(33.33% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+    height: auto;
+    gap: 1%; /* Espacio entre los items */
+    width: calc(20% - 5px); /* 1/3 del ancho total menos el espacio entre items */
 
 }
 
 .verbs-container {
     display: flex;
     flex-wrap: wrap;
-    width: 45%; /* Ajusta el ancho del contenedor de verbos */
-    gap: 10px; /* Espacio entre los items */
-    width: calc(66.66% - 5px); /* 2/3 del ancho total menos el espacio entre items */
-
+    flex-direction: row;
+    gap: 1%; /* Espacio entre los items */
+    width: calc(80% - 5px); /* 2/3 del ancho total menos el espacio entre items */
+    height: auto;
 }
 
 .lector-container {
@@ -468,7 +471,7 @@ html, body {
 }
 
 .file-input-label img {
-    width: 10%; /* Ajusta el tamaño según sea necesario */
+    width: 7%; /* Ajusta el tamaño según sea necesario */
     background-color: transparent; /* Elimina el fondo */
 }
 
@@ -484,36 +487,252 @@ html, body {
 }
 
 .pantalla-completa img {
-    width: 100%; /* Ajusta el tamaño según sea necesario */
+    width: 70%; /* Ajusta el tamaño según sea necesario */
     background-color: transparent; /* Elimina el fondo */
     display: block; /* Asegura que la imagen no tenga margen extra */
 }
 
 
-
- /*RESPONSIVE*/
- /* Ocultar el logo en dispositivos que no sean ordenadores */
-
-@media (max-width: 768px) {
-    .item {
-        width: calc(50% / 2);
-    }
-    
-}
-
-/* Estilos para dispositivos móviles */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
+    .lector .word-item {
+        flex: 0 0 30%;
+        max-width: 30%;
+        font-size: 70%;
+    }
+
     .item {
-		width: calc(50% / 2);
+        width: calc(50% - 10px);
+    }
+    .actions-container{
+        width: calc(30% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(70% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container,
+    .actions-container {
+        width: 50%;
+    }
+}
+@media (max-width: 1010px) {
+    .item {
+        width: calc(50% - 10px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+
+    .item span {
+        font-size: 80%;
+        font-weight: bold; /* Negrita para el nombre */
+
+    }
+    .actions-container{
+        width: calc(25% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(75% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .lector .word-item {
+        flex: 0 0 45%;
+        max-width: 45%;
+        font-size: 60%;
+    }
+}
+@media (max-width: 900px) {
+    .item {
+        width: calc(50% - 10px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+
+    .item span {
+        font-size: 80%;
+        font-weight: bold; /* Negrita para el nombre */
+
+    }
+    .actions-container{
+        width: calc(25% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(75% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .lector .word-item {
+        flex: 0 0 45%;
+        max-width: 45%;
+        font-size: 60%;
+    }
+}
+@media (max-width: 854px) {
+    .item {
+        width: calc(50% - 10px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+
+    .item span {
+        font-size: 80%;
+        font-weight: bold; /* Negrita para el nombre */
+
+    }
+    .actions-container{
+        width: calc(25% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(75% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .lector .word-item {
+        flex: 0 0 45%;
+        max-width: 45%;
+        font-size: 60%;
     }
 }
 
+@media (max-width: 700px) {
+    .item {
+        width: calc(50% - 10px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+    .actions-container{
+        width: calc(25% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(75% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .item span {
+        font-size: 70%;
+        font-weight: bold; /* Negrita para el nombre */
+
+    }
+
+    .lector .word-item {
+        flex: 0 0 45%;
+        max-width: 45%;
+        font-size: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    .item {
+        width: calc(80% - 10px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+    .actions-container{
+        width: calc(30% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(70% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .item span {
+        font-size: 60%;
+        font-weight: bold; /* Negrita para el nombre */
+
+    }
+
+    .lector .word-item {
+        flex: 0 0 45%;
+        max-width: 45%;
+        font-size: 60%;
+    }
+}
 @media (max-width: 480px) {
     .item {
-    	width: calc(50% / 2);
+        width: calc(50% - 20px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+
+    .item span {
+        font-size: 50%;
+        font-weight: bold; /* Negrita para el nombre */
 
     }
+    .actions-container{
+        width: calc(30% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(70% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .lector .word-item {
+        flex: 0 0 90%;
+        max-width: 90%;
+        font-size: 50%;
+    }
 }
+@media (max-width: 410px) {
+    .item {
+        width: calc(50% - 20px);
+    }
+
+    .verbs-container,
+    .actions-container {
+        width: 100%;
+    }
+    .actions-container{
+        width: calc(20% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+    .verbs-container{
+        width: calc(80% - 5px); /* 1/3 del ancho total menos el espacio entre items */
+
+    }
+
+    .item span {
+        font-size: 35%;
+        font-weight: bold; /* Negrita para el nombre */
+
+
+    }
+
+    .lector .word-item {
+        flex: 0 0 90%;
+        max-width: 90%;
+        font-size: 50%;
+    }
+}
+/* Estilos para dispositivos de tamaño mediano */
+@media (max-width: 1024px) {
+    .lector-big .word-item  {
+        flex: 0 0 11%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
+        margin-left: 4%;
+    }
+}
+
 /* Estilos para dispositivos  */
 @media (max-width: 800px) {
     .lector-big .word-item {
@@ -528,7 +747,7 @@ html, body {
 @media (max-width: 600px) {
     .lector-big  .word-item {
         flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
-        max-width: 100%; /* Establece el ancho máximo del ítem */
+        max-width: 80%; /* Establece el ancho máximo del ítem */
         font-size: 75%; /* Reducir el tamaño de la fuente para las palabras */
         margin-left: 3%;
 
@@ -544,20 +763,12 @@ html, body {
 
     }
 }
-/* Estilos para dispositivos de tamaño mediano */
-@media (max-width: 1024px) {
-    .lector-big .word-item  {
-        flex: 0 0 15%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
-        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
-        margin-left: 4%;
-    }
-}
-/* Estilos para dispositivos de tamaño mediano */
-@media (max-width: 1024px) {
-    .lector .word-item {
-        flex: 0 0 30%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
-        max-width: 30%; /* Establece el ancho máximo del ítem */
-        font-size: 70%; /* Reducir el tamaño de la fuente para las palabras */
-        margin-right: -10%;
+@media (max-width: 389px) {
+    .lector-big  .word-item {
+        flex: 0 0 20%; /* Ajusta el tamaño del ítem para que quepan más en una fila */
+        max-width: 80%; /* Establece el ancho máximo del ítem */
+        font-size: 15%; /* Reducir el tamaño de la fuente para las palabras */
+        margin-left: 3%;
+
     }
 }
