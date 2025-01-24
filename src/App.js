@@ -28,11 +28,37 @@ function App() {
 	const itemsPerPage = 6; // Número de elementos por página
 
 	useEffect(() => {
-		const allCurrentWords = [...places, ...actions, ...verbs, ...foods];
-		setAllWords(allCurrentWords);
-	}, []);
+      const fetchData = async () => {
+        try {
+          // Obtener palabras desde tu base de datos local (el backend)
+          const responsePlaces = await fetch('http://localhost:5001/words');  // Obtiene las palabras desde el backend
+          const placesData = await responsePlaces.json();
 
-	const filteredWords = allWords.filter((word) => word.type === currentType[currentType.length - 1]);
+          // Obtener pictogramas desde la API de ARASAAC
+          const responseActions = await fetch('http://localhost:5001/arasac/actions');
+          const actionsData = await responseActions.json();
+
+          const responseVerbs = await fetch('http://localhost:5001/arasac/verbs');
+          const verbsData = await responseVerbs.json();
+
+          const responseFoods = await fetch('http://localhost:5001/arasac/foods');
+          const foodsData = await responseFoods.json();
+
+          // Actualizamos el estado con los datos obtenidos
+          setAllWords([...placesData, ...actionsData, ...verbsData, ...foodsData]);
+        } catch (error) {
+          console.error('Error al obtener los datos:', error);
+        }
+      };
+
+      fetchData();
+    }, []);
+
+
+
+const filteredWords = useMemo(() => {
+  return allWords.filter((word) => word.type === currentType[currentType.length - 1]);
+}, [allWords, currentType]);
 
 	// Lógica para obtener los elementos a mostrar en la página actual según el tipo actual y la paginación
 	const indexOfLastItem = currentPage * itemsPerPage;
@@ -108,9 +134,9 @@ function App() {
 	function speakSentence() {
 		window.speechSynthesis.cancel();
 
-		if (!"speechSynthesis" in window) {
-			console.log("El navegador no admite la síntesis de voz.");
-		}
+		if (!("speechSynthesis" in window)) {
+          console.log("El navegador no admite la síntesis de voz.");
+        }
 
 		let voice = new SpeechSynthesisUtterance();
 		// Objeto de la API

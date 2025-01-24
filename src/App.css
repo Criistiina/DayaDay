@@ -375,7 +375,7 @@ html, body {
 }
 .salir {
     position: absolute; /* Posición relativa para permitir posicionar el elemento dentro de él */
-    margin-top: 10%; /* Espacio entre el lector-big y el mensaje */
+    margin-top: 17%; /* Espacio entre el lector-big y el mensaje */
 }
 
 .salir p {
