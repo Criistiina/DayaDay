@@ -12,6 +12,8 @@ import SiguienteIcon from "./images/siguiente.png";
 import imprimir from "./images/imprimir.png";
 import añadir from "./images/anadir.png";
 import cancelar from "./images/cancelar.png";
+import React, { useMemo } from 'react';
+
 
 function App() {
 	const [phrase, setPhrase] = useState([]);
